@@ -7,6 +7,7 @@ import 'package:movie_app/core/navigation/app_routing.dart';
 import 'package:movie_app/core/theming/app_theme.dart';
 import 'package:movie_app/core/utils/change_lang/localization_cubit.dart';
 import 'package:movie_app/generated/l10n.dart';
+import 'package:movie_app/main.dart';
 
 class MovieApp extends StatelessWidget {
   const MovieApp({super.key});
@@ -20,7 +21,9 @@ class MovieApp extends StatelessWidget {
       builder: (_, child) {
         return BlocBuilder<LocalizationCubit, LocalizationState>(
           builder: (context, state) {
-            return MaterialApp(
+            return MaterialApp(  
+              navigatorKey: navigatorKey,
+
               debugShowCheckedModeBanner: false,
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
