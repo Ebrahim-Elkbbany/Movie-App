@@ -18,6 +18,7 @@ abstract class AppImages {
     static const String avatar7 = '${base}png/avatar7.png';
     static const String avatar8 = '${base}png/avatar8.png';
     static const String avatar9 = '${base}png/avatar9.png';
+    static const String empty = '${base}png/empty.png';
 }
 
 abstract class AppSvgImages {

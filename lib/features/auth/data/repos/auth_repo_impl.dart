@@ -56,6 +56,7 @@ class AuthRepoImpl implements AuthRepo {
         userId: credential.user!.uid,
         name: name,
         email: email,
+        phone: phone,
         avatarPath: avatarPath,
         createdAt: DateTime.now(),
       );
@@ -93,6 +94,7 @@ class AuthRepoImpl implements AuthRepo {
         email: userCredential.user!.email?.isNotEmpty == true
             ? userCredential.user!.email!
             : 'No Email Provided',
+        phone: '',
         avatarPath: userCredential.user!.photoURL?.isNotEmpty == true
             ? userCredential.user!.photoURL!
             : AppImages.avatar1,
