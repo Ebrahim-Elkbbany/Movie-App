@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/core/navigation/app_routes.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/theming/font_styles.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/core/widgets/buttons/custom_button.dart';
 import 'package:movie_app/core/widgets/text_fields/custom_text_form_field.dart';
 import 'package:movie_app/features/auth/presentation/manager/login_cubit/login_cubit.dart';
@@ -50,7 +50,7 @@ class _LoginFormState extends State<LoginForm> {
             prefixWidget: Padding(
               padding: EdgeInsets.all(14.r),
               child: SvgPicture.asset(
-                AssetsPaths.emailIcon,
+                AppIcons.email,
                 width: 20.w,
                 height: 20.h,
                 colorFilter: ColorFilter.mode(
@@ -81,7 +81,7 @@ class _LoginFormState extends State<LoginForm> {
                 prefixWidget: Padding(
                   padding: EdgeInsets.all(14.r),
                   child: SvgPicture.asset(
-                    AssetsPaths.lockIcon,
+                    AppIcons.lock,
                     width: 20.w,
                     height: 20.h,
                     colorFilter: ColorFilter.mode(

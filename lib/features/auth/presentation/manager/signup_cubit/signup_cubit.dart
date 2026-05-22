@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/features/auth/data/models/user_model.dart';
 import 'package:movie_app/features/auth/data/repos/auth_repo.dart';
 
@@ -12,7 +12,7 @@ class SignupCubit extends Cubit<SignupState> {
 
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
-  String _selectedAvatar = AssetsPaths.avatar1;
+  String _selectedAvatar = AppImages.avatar1;
 
   bool get isPasswordVisible => _isPasswordVisible;
   bool get isConfirmPasswordVisible => _isConfirmPasswordVisible;

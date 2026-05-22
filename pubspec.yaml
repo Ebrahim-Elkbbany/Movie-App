@@ -41,17 +41,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2  
-  flutter_screenutil: ^5.9.3
-  flutter_secure_storage: ^10.0.0
-  get_it: ^9.2.0
-  pretty_dio_logger: ^1.4.0
-  shared_preferences: ^2.5.4
-  shimmer: ^3.0.0
-  talker_dio_logger: ^5.1.13
-  flutter_local_notifications: ^19.4.1
   flutter_native_splash: ^2.4.7
   flutter_launcher_icons: ^0.14.4
-  flutter_svg: ^2.3.0
   firebase_auth: ^6.5.1
   cloud_firestore: ^6.4.1
   google_sign_in: ^7.2.0

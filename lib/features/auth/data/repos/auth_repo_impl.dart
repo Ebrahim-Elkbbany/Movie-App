@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/features/auth/data/models/user_model.dart';
 import 'package:movie_app/features/auth/data/repos/auth_repo.dart';
 
@@ -95,7 +95,7 @@ class AuthRepoImpl implements AuthRepo {
             : 'No Email Provided',
         avatarPath: userCredential.user!.photoURL?.isNotEmpty == true
             ? userCredential.user!.photoURL!
-            : AssetsPaths.avatar1,
+            : AppImages.avatar1,
         createdAt: DateTime.now(),
       );
       await _firestore.collection('users').doc(uid).set(user.toJson());

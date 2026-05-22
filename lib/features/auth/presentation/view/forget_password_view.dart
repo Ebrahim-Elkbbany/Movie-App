@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/theming/font_styles.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/core/widgets/buttons/custom_button.dart';
 import 'package:movie_app/core/widgets/text_fields/custom_text_form_field.dart';
 import 'package:movie_app/features/auth/presentation/manager/login_cubit/login_cubit.dart';
@@ -54,7 +54,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
             child: Column(
               children: [
                 SizedBox(height: 20.h),
-                Image.asset(AssetsPaths.forgetPasswordImage, height: 260.h),
+                Image.asset(AppImages.forgetPasswordImage, height: 260.h),
                 SizedBox(height: 40.h),
                 CustomTextFormField(
                   controller: _emailController,
@@ -62,7 +62,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                   prefixWidget: Padding(
                     padding: EdgeInsets.all(14.r),
                     child: SvgPicture.asset(
-                      AssetsPaths.emailIcon,
+                      AppIcons.email,
                       width: 20.w,
                       height: 20.h,
                       colorFilter: ColorFilter.mode(

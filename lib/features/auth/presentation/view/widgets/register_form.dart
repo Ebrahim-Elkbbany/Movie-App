@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/core/widgets/buttons/custom_button.dart';
 import 'package:movie_app/core/widgets/text_fields/custom_text_form_field.dart';
 import 'package:movie_app/features/auth/presentation/manager/signup_cubit/signup_cubit.dart';
@@ -39,7 +39,7 @@ class RegisterForm extends StatelessWidget {
             prefixWidget: Padding(
               padding: EdgeInsets.all(14.r),
               child: SvgPicture.asset(
-                AssetsPaths.userIcon,
+                AppIcons.user,
                 width: 20.w,
                 height: 20.h,
                 colorFilter: ColorFilter.mode(
@@ -58,7 +58,7 @@ class RegisterForm extends StatelessWidget {
             prefixWidget: Padding(
               padding: EdgeInsets.all(14.r),
               child: SvgPicture.asset(
-                AssetsPaths.emailIcon,
+                AppIcons.email,
                 width: 20.w,
                 height: 20.h,
                 colorFilter: ColorFilter.mode(
@@ -89,7 +89,7 @@ class RegisterForm extends StatelessWidget {
                 prefixWidget: Padding(
                   padding: EdgeInsets.all(14.r),
                   child: SvgPicture.asset(
-                    AssetsPaths.lockIcon,
+                    AppIcons.lock,
                     width: 20.w,
                     height: 20.h,
                     colorFilter: ColorFilter.mode(
@@ -130,7 +130,7 @@ class RegisterForm extends StatelessWidget {
                 prefixWidget: Padding(
                   padding: EdgeInsets.all(14.r),
                   child: SvgPicture.asset(
-                    AssetsPaths.lockIcon,
+                    AppIcons.lock,
                     width: 20.w,
                     height: 20.h,
                     colorFilter: ColorFilter.mode(
@@ -169,7 +169,7 @@ class RegisterForm extends StatelessWidget {
             prefixWidget: Padding(
               padding: EdgeInsets.all(14.r),
               child: SvgPicture.asset(
-                AssetsPaths.phoneIcon,
+                AppIcons.phone,
                 width: 20.w,
                 height: 20.h,
                 colorFilter: ColorFilter.mode(

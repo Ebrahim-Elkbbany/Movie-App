@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/theming/font_styles.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/features/auth/presentation/view/widgets/register_avatar_selector.dart';
 import 'package:movie_app/features/auth/presentation/view/widgets/register_form.dart';
 import 'package:movie_app/features/auth/presentation/view/widgets/signup_bloc_listener.dart';
@@ -23,15 +23,15 @@ class _RegisterViewState extends State<RegisterView> {
   final _phoneController = TextEditingController();
 
   static const _avatarList = [
-    AssetsPaths.avatar1,
-    AssetsPaths.avatar2,
-    AssetsPaths.avatar3,
-    AssetsPaths.avatar4,
-    AssetsPaths.avatar5,
-    AssetsPaths.avatar6,
-    AssetsPaths.avatar7,
-    AssetsPaths.avatar8,
-    AssetsPaths.avatar9,
+    AppImages.avatar1,
+    AppImages.avatar2,
+    AppImages.avatar3,
+    AppImages.avatar4,
+    AppImages.avatar5,
+    AppImages.avatar6,
+    AppImages.avatar7,
+    AppImages.avatar8,
+    AppImages.avatar9,
   ];
 
   @override

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/navigation/app_routes.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/theming/font_styles.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:movie_app/features/auth/presentation/view/widgets/auth_google_button.dart';
 import 'package:movie_app/features/auth/presentation/view/widgets/auth_or_divider.dart';
@@ -23,7 +23,7 @@ class LoginViewBody extends StatelessWidget {
           children: [
             SizedBox(height: 60.h),
             Image.asset(
-              AssetsPaths.logo,
+              AppImages.logo,
               height: 120.h,
               width: 120.w,
             ),

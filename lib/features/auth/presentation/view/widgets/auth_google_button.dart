@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/theming/font_styles.dart';
-import 'package:movie_app/core/utils/constants/assets_paths.dart';
+import 'package:movie_app/core/utils/constants/app_assets.dart';
 
 class AuthGoogleButton extends StatelessWidget {
   const AuthGoogleButton({super.key, required this.onPressed});
@@ -31,7 +31,7 @@ class AuthGoogleButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              AssetsPaths.googleIcon,
+              AppSvgImages.googleIcon,
               width: 24.w,
               height: 24.h,
             ),
