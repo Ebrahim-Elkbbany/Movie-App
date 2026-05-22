@@ -24,6 +24,7 @@ class ProfileTabBar extends StatelessWidget {
       unselectedLabelStyle: FontStyles.font16Regular,
       tabs: [
         Tab(
+          height: 72.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -38,6 +39,7 @@ class ProfileTabBar extends StatelessWidget {
           ),
         ),
         Tab(
+          height: 72.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
