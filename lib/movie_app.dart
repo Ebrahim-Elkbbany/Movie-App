@@ -16,19 +16,19 @@ class MovieApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(430, 932),
-      minTextAdapt: true, 
+      minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
         return BlocBuilder<LocalizationCubit, LocalizationState>(
           builder: (context, state) {
-            return MaterialApp(  
+            return MaterialApp(
               navigatorKey: navigatorKey,
 
               debugShowCheckedModeBanner: false,
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode: ThemeMode.system,
-              locale: context.read<LocalizationCubit>().getLocale(),
+              locale: const Locale('en'),
               localizationsDelegates: const [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,

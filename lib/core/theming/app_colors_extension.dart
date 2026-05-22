@@ -82,7 +82,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     );
   }
 
-  static const Color _primaryYellow = Color(0xFFFFBB3B);
+  static const Color _primaryYellow = Color(0xFFF6BD00);
   static const Color _secondaryGreen = Color(0xFF57AA53);
 
   static const Color _darkBg = Color(0xFF121312);
