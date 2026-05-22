@@ -8,7 +8,7 @@ import '../../../features/login/data/data_sources/login_remote_data_source.dart'
 import '../../../features/login/data/repos/login_repo_impl.dart';
 import '../../../features/login/domain/repos/login_repo.dart';
 import '../../../features/login/domain/use_case/login_use_case.dart';
-import '../../../features/login/presentation/manager/login_cubit.dart';
+import '../../features/login/presentation/view_model/login_cubit.dart';
 
 final getIt = GetIt.instance;
 

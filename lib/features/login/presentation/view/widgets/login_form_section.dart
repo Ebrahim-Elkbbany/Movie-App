@@ -5,7 +5,7 @@ import 'package:movie_app/core/utils/extensions/context_extension.dart';
 import 'package:movie_app/core/widgets/buttons/custom_button.dart';
 import 'package:movie_app/core/widgets/custom_text.dart';
 import 'package:movie_app/core/widgets/text_fields/custom_text_form_field.dart';
-import 'package:movie_app/features/login/presentation/manager/login_cubit.dart';
+import 'package:movie_app/features/login/presentation/view_model/login_cubit.dart';
 import 'package:movie_app/generated/l10n.dart';
 
 class LoginFormSection extends StatefulWidget {
