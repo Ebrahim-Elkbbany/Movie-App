@@ -6,10 +6,10 @@ class ProfileTabBarDelegate extends SliverPersistentHeaderDelegate {
   ProfileTabBarDelegate(this.tabBar);
 
   @override
-  double get minExtent => 49.0;
+  double get minExtent => 75.0;
   
   @override
-  double get maxExtent => 49.0;
+  double get maxExtent => 75.0;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

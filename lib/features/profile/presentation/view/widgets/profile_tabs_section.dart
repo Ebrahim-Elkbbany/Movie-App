@@ -18,27 +18,35 @@ class ProfileTabBar extends StatelessWidget {
     return TabBar(
       indicatorColor: colors.primary,
       indicatorWeight: 3,
-      labelColor: colors.primary,
-      unselectedLabelColor: colors.textSecondary,
-      labelStyle: FontStyles.font16Bold,
+      labelColor: Colors.white,
+      unselectedLabelColor: Colors.white.withValues(alpha: 0.6),
+      labelStyle: FontStyles.font16SemiBold,
       unselectedLabelStyle: FontStyles.font16Regular,
       tabs: [
         Tab(
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.format_list_bulleted),
-              SizedBox(width: 8.w),
+              Icon(
+                Icons.format_list_bulleted,
+                color: colors.primary,
+                size: 26.sp,
+              ),
+              SizedBox(height: 6.h),
               const Text('Watch List'),
             ],
           ),
         ),
         Tab(
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.folder),
-              SizedBox(width: 8.w),
+              Icon(
+                Icons.folder,
+                color: colors.primary,
+                size: 26.sp,
+              ),
+              SizedBox(height: 6.h),
               const Text('History'),
             ],
           ),
