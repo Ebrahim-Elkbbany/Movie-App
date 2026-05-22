@@ -1,4 +1,4 @@
-
+ 
 import 'package:movie_app/features/login/domain/entites/user_data_entity.dart';
 
 class LoginResponseModel extends UserDataEntity {

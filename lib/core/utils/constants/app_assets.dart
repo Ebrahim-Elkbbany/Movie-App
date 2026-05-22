@@ -1,4 +1,12 @@
-abstract class AppImages {}
+abstract class AppImages {
+    static const String base = 'assets/images/';
+    static const String onBoarding1 = '${base}onBoarding1.png';
+    static const String onBoarding2 = '${base}onBoarding2.png';
+    static const String onBoarding3 = '${base}onBoarding3.png';
+    static const String onBoarding4 = '${base}onBoarding4.png';
+    static const String onBoarding5 = '${base}onBoarding5.png';
+    static const String onBoarding6 = '${base}onBoarding6.png';
+}
 
 abstract class AppSvgImages {
   static const String base = 'assets/images/svg/';
@@ -39,3 +47,4 @@ abstract class AppIcons {
   static const String items = '${base}items.svg';
   static const String folder = '${base}folder.svg';
 }
+ 
