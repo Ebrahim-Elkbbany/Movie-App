@@ -27,9 +27,9 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
         filled: true,
-        fillColor: colors.background,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        hintStyle: FontStyles.font16Regular.copyWith(
+        fillColor: colors.surface,
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+        hintStyle: FontStyles.font14Regular.copyWith(
           color: colors.textSecondary,
         ),
         errorStyle: TextStyle(color: colors.error, fontSize: 12.sp),
@@ -41,13 +41,13 @@ class AppTheme {
         disabledBorder: _outlineBorder(colors.disabledColor),
       ),
 
-      // 🔵 Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: colors.primary,
-          foregroundColor: Colors.white,
+          backgroundColor: colors.buttonColor,
+          foregroundColor: const Color(0xFF121312),
           elevation: 0,
           textStyle: FontStyles.font16SemiBold,
+          minimumSize: Size(double.infinity, 52.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
           ),
@@ -55,7 +55,27 @@ class AppTheme {
         ),
       ),
 
-      // 🟣 Card & Divider Theme
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colors.primary,
+          side: BorderSide(color: colors.primary, width: 1.5),
+          elevation: 0,
+          textStyle: FontStyles.font16SemiBold,
+          minimumSize: Size(double.infinity, 52.h),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+        ),
+      ),
+
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: colors.primary,
+          textStyle: FontStyles.font14SemiBold,
+        ),
+      ),
+
       cardTheme: CardThemeData(
         color: colors.surface,
         elevation: 0,
@@ -63,13 +83,13 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12.r),
         ),
       ),
+
       dividerTheme: DividerThemeData(
         color: colors.surface,
         thickness: 1,
         space: 20.h,
       ),
 
-      // 🔴 Dialog Theme
       dialogTheme: DialogThemeData(
         backgroundColor: colors.background,
         shape: RoundedRectangleBorder(
@@ -77,32 +97,42 @@ class AppTheme {
         ),
       ),
 
-      // 🟡 Text Theme
       textTheme: TextTheme(
         displayLarge: FontStyles.font50SemiBold.copyWith(
+          color: colors.textPrimary,
+        ),
+        headlineMedium: FontStyles.font24Bold.copyWith(
           color: colors.textPrimary,
         ),
         titleLarge: FontStyles.font20SemiBold.copyWith(
           color: colors.textPrimary,
         ),
+        titleMedium: FontStyles.font18SemiBold.copyWith(
+          color: colors.textPrimary,
+        ),
         bodyLarge: FontStyles.font16SemiBold.copyWith(
           color: colors.textPrimary,
         ),
-        bodyMedium: FontStyles.font16Regular.copyWith(
+        bodyMedium: FontStyles.font14Regular.copyWith(
           color: colors.textSecondary,
         ),
-        bodySmall: FontStyles.font14Bold.copyWith(color: colors.textPrimary),
+        bodySmall: FontStyles.font12Regular.copyWith(
+          color: colors.textSecondary,
+        ),
+        labelLarge: FontStyles.font16SemiBold.copyWith(
+          color: colors.textPrimary,
+        ),
       ),
 
-      // ⚪ AppBar Theme
       appBarTheme: AppBarTheme(
         titleTextStyle: FontStyles.font20SemiBold.copyWith(
           color: colors.textPrimary,
         ),
         centerTitle: true,
         iconTheme: IconThemeData(color: colors.iconColor, size: 24.sp),
-        backgroundColor: colors.background,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        scrolledUnderElevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: statusIconBrightness,
@@ -112,19 +142,50 @@ class AppTheme {
       ),
 
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: colors.background,
+        backgroundColor: colors.surface,
         selectedItemColor: colors.primary,
         unselectedItemColor: colors.textSecondary,
         type: BottomNavigationBarType.fixed,
-        elevation: 10,
+        elevation: 0,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+      ),
+
+      chipTheme: ChipThemeData(
+        backgroundColor: colors.surface,
+        selectedColor: colors.primary,
+        labelStyle: FontStyles.font12Regular.copyWith(color: colors.textPrimary),
+        secondaryLabelStyle: FontStyles.font12Regular.copyWith(color: const Color(0xFF121312)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        side: BorderSide.none,
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+      ),
+
+      tabBarTheme: TabBarThemeData(
+        labelColor: colors.primary,
+        unselectedLabelColor: colors.textSecondary,
+        labelStyle: FontStyles.font14SemiBold,
+        unselectedLabelStyle: FontStyles.font14Regular,
+        indicatorColor: colors.primary,
+        indicatorSize: TabBarIndicatorSize.label,
+        dividerColor: Colors.transparent,
+      ),
+
+      iconTheme: IconThemeData(
+        color: colors.iconColor,
+        size: 24.sp,
+      ),
+
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colors.primary,
       ),
     );
   }
 
   static OutlineInputBorder _outlineBorder(Color color) => OutlineInputBorder(
-    borderRadius: BorderRadius.circular(4.r),
+    borderRadius: BorderRadius.circular(10.r),
     borderSide: BorderSide(color: color),
   );
 }

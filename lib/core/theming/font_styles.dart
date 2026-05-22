@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/core/theming/font_weight_helper.dart'; // مسارك زي ما هو
+import 'package:movie_app/core/theming/font_weight_helper.dart';
 
 class FontStyles {
   static TextStyle font50SemiBold = TextStyle(
@@ -10,9 +10,21 @@ class FontStyles {
     fontFamily: 'Cairo',
   );
 
+  static TextStyle font24Bold = TextStyle(
+    fontWeight: FontWeightHelper.bold,
+    fontSize: 24.sp,
+    fontFamily: 'Cairo',
+  );
+
   static TextStyle font20SemiBold = TextStyle(
     fontWeight: FontWeightHelper.semiBold,
     fontSize: 20.sp,
+    fontFamily: 'Cairo',
+  );
+
+  static TextStyle font18SemiBold = TextStyle(
+    fontWeight: FontWeightHelper.semiBold,
+    fontSize: 18.sp,
     fontFamily: 'Cairo',
   );
 
@@ -28,9 +40,33 @@ class FontStyles {
     fontFamily: 'Cairo',
   );
 
+  static TextStyle font14Regular = TextStyle(
+    fontWeight: FontWeightHelper.regular,
+    fontSize: 14.sp,
+    fontFamily: 'Cairo',
+  );
+
+  static TextStyle font14SemiBold = TextStyle(
+    fontWeight: FontWeightHelper.semiBold,
+    fontSize: 14.sp,
+    fontFamily: 'Cairo',
+  );
+
   static TextStyle font14Bold = TextStyle(
     fontWeight: FontWeightHelper.bold,
     fontSize: 14.sp,
+    fontFamily: 'Cairo',
+  );
+
+  static TextStyle font12Regular = TextStyle(
+    fontWeight: FontWeightHelper.regular,
+    fontSize: 12.sp,
+    fontFamily: 'Cairo',
+  );
+
+  static TextStyle font12SemiBold = TextStyle(
+    fontWeight: FontWeightHelper.semiBold,
+    fontSize: 12.sp,
     fontFamily: 'Cairo',
   );
 }
