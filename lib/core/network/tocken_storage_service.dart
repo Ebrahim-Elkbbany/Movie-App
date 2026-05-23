@@ -5,8 +5,7 @@ class TokenStorageService {
 
   static const _tokenKey = 'auth_token';
 
-  AndroidOptions _getAndroidOptions() =>
-      const AndroidOptions(encryptedSharedPreferences: true);
+  AndroidOptions _getAndroidOptions() => const AndroidOptions();
 
   IOSOptions _getIOSOptions() =>
       const IOSOptions(accessibility: KeychainAccessibility.first_unlock);

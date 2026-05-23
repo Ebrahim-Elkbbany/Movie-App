@@ -11,7 +11,9 @@ class CustomTextFormField extends StatelessWidget {
   final bool? isObscureText;
   final bool isReadOnly;
   final IconData? suffixIcon;
+  final Widget? suffixWidget;
   final IconData? prefixIcon;
+  final Widget? prefixWidget;
   final Function()? suffixIconTap;
   final String? upperText;
   final Color? backgroundColor;
@@ -37,7 +39,9 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.isObscureText,
     this.suffixIcon,
+    this.suffixWidget,
     this.prefixIcon,
+    this.prefixWidget,
     this.suffixIconTap,
     this.upperText,
     this.isReadOnly = false,
@@ -89,17 +93,17 @@ class CustomTextFormField extends StatelessWidget {
             contentPadding: contentPadding,
             focusedBorder: focusedBorder,
             enabledBorder: enabledBorder,
-            suffixIcon: suffixIcon != null
+            suffixIcon: suffixWidget ?? (suffixIcon != null
                 ? TextFieldSuffixIcon(
                     icon: suffixIcon!,
                     onTap: suffixIconTap,
                   )
-                : null,
-            prefixIcon: prefixIcon != null
+                : null),
+            prefixIcon: prefixWidget ?? (prefixIcon != null
                 ? TextFieldPrefixIcon(
                     icon: prefixIcon!,
                   )
-                : null,
+                : null),
           ),
         ),
       ],

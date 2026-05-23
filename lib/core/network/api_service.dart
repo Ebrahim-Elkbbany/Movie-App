@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:ansicolor/ansicolor.dart';
-import 'package:dartz/dartz.dart'; // تأكدي من إضافة مكتبة dartz في pubspec.yaml
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movie_app/core/failure/failures.dart';
@@ -10,17 +10,16 @@ import 'package:movie_app/core/network/tocken_storage_service.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
-///how to use it in repository
+/// How to use in a repository:
+/// ```dart
 /// Future<Either<Failure, YourModel>> getSomething() async {
-///  // 1. Call the API (no try-catch needed here anymore!)
-///  final result = await _apiService.get(urlEndPoint: "your/endpoint");
-///
-///  // 2. Handle the Either result
+///   final result = await _apiService.get(urlEndPoint: 'your/endpoint');
 ///   return result.fold(
-///   (failure) => Left(failure), // If it's a failure, just pass it up
-///    (data) => Right(YourModel.fromJson(data)), // If success, parse the data
-///  );
-///}
+///     (failure) => Left(failure),
+///     (data) => Right(YourModel.fromJson(data)),
+///   );
+/// }
+/// ```
 
 class ApiService {
   late Dio dio;
@@ -47,7 +46,6 @@ class ApiService {
       ),
     );
 
-    // Interceptor للتعامل مع التوكن والـ 401
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -69,7 +67,6 @@ class ApiService {
       ),
     );
 
-    // Logger للـ Debugging
     if (kDebugMode) {
       dio.interceptors.add(
         TalkerDioLogger(
@@ -88,10 +85,6 @@ class ApiService {
     }
   }
 
-  // --- [Centralized Safe API Call Helper] ---
-
-  /// دالة مركزية تقوم بتنفيذ أي طلب API وتغليفه بـ try/catch
-  /// لترجع Either (إما Failure أو البيانات الناجحة)
   Future<Either<Failure, dynamic>> _safeApiCall(
     Future<Response> Function() call,
   ) async {
@@ -99,15 +92,11 @@ class ApiService {
       final response = await call();
       return Right(response.data);
     } on DioException catch (e) {
-      // تحويل خطأ Dio لـ ServerFailure الخاص بك
       return Left(ServerFailure.fromDioException(e));
     } catch (e) {
-      // أي خطأ غير متوقع آخر
       return Left(ServerFailure(e.toString()));
     }
   }
-
-  // --- [العمليات الأساسية المحدثة] ---
 
   Future<Either<Failure, dynamic>> get({
     required String urlEndPoint,

@@ -1,22 +1,70 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/di/service_locator.dart';
 import 'package:movie_app/core/navigation/app_routes.dart';
-import 'package:movie_app/features/login/presentation/manager/login_cubit.dart';
-import 'package:movie_app/features/login/presentation/view/login_view.dart';
+import 'package:movie_app/features/auth/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:movie_app/features/auth/presentation/manager/signup_cubit/signup_cubit.dart';
+import 'package:movie_app/features/auth/presentation/view/forget_password_view.dart';
+import 'package:movie_app/features/auth/presentation/view/login_view.dart';
+import 'package:movie_app/features/auth/presentation/view/register_view.dart';
+import 'package:movie_app/features/profile/presentation/view/profile_view.dart';
+import 'package:movie_app/features/profile/presentation/view/edit_profile_view.dart';
+import 'package:movie_app/features/auth/data/models/user_model.dart';
 
 abstract class AppRouter {
   static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
-    var name = routeSettings.name;
+    final name = routeSettings.name;
     try {
       switch (name) {
-        case AppRoutes.loginView:
+        case AppRoutes.initialRoute:
+          final user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+            return MaterialPageRoute(
+              builder: (context) => const ProfileView(),
+            );
+          }
           return MaterialPageRoute(
             builder: (context) => BlocProvider(
-              create: (context) => getIt.get<LoginCubit>(),
+              create: (_) => getIt<LoginCubit>(),
               child: const LoginView(),
             ),
           );
+        case AppRoutes.loginView:
+          return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (_) => getIt<LoginCubit>(),
+              child: const LoginView(),
+            ),
+          );
+
+        case AppRoutes.registerView:
+          return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (_) => getIt<SignupCubit>(),
+              child: const RegisterView(),
+            ),
+          );
+
+        case AppRoutes.forgetPasswordView:
+          return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (_) => getIt<LoginCubit>(),
+              child: const ForgetPasswordView(),
+            ),
+          );
+
+        case AppRoutes.profileView:
+          return MaterialPageRoute(
+            builder: (context) => const ProfileView(),
+          );
+
+        case AppRoutes.editProfileView:
+          final userModel = routeSettings.arguments as UserModel;
+          return MaterialPageRoute(
+            builder: (context) => EditProfileView(userModel: userModel),
+          );
+
         default:
           return _errorRoute();
       }
@@ -27,29 +75,11 @@ abstract class AppRouter {
 
   static Route<dynamic> _errorRoute() {
     return MaterialPageRoute(
-      builder: (context) {
-        return Material(
-          child: Container(
-            color: Colors.red,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Text(
-                    'Error! You Have Navigated To A Wrong Route. Or Navigated With Wrong Arguments',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+      builder: (context) => const Scaffold(
+        body: Center(
+          child: Text('Route not found', style: TextStyle(color: Colors.red)),
+        ),
+      ),
     );
   }
 }
