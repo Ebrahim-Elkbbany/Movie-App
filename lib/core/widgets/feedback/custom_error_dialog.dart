@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/utils/extensions/context_extension.dart';
 import 'package:movie_app/core/widgets/buttons/custom_text_button.dart';
-import 'package:movie_app/core/widgets/feedback/error_icon.dart';
-import 'package:movie_app/core/widgets/feedback/error_text.dart';
-import 'package:movie_app/generated/l10n.dart';
+import 'package:movie_app/core/widgets/custom_text.dart';
 
 class CustomErrorDialog extends StatelessWidget {
   final String errorMessage;
@@ -18,32 +16,41 @@ class CustomErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       backgroundColor: context.customColors.surface,
-      contentPadding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 10.h),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.r),
+      ),
+      title: Row(
         children: [
-          const ErrorIcon(),
-          context.gapH(16),
-          ErrorText(message: errorMessage),
+          Icon(Icons.error_outline, color: context.customColors.error, size: 28.sp),
+          SizedBox(width: 8.w),
+          CustomText(
+            text: 'Error',
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+            textColor: context.customColors.error,
+          ),
         ],
+      ),
+      content: CustomText(
+        text: errorMessage,
+        fontSize: 16.sp,
+        textColor: context.customColors.textPrimary,
       ),
       actions: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CustomTextButton(
-              text: s.close,
+              text: 'Close',
               onPressed: () => Navigator.pop(context),
               color: context.customColors.textSecondary,
             ),
             if (onRetry != null) ...[
-              context.gapW(8),
+              SizedBox(width: 8.w),
               CustomTextButton(
-                text: s.Retry,
+                text: 'Retry',
                 onPressed: () {
                   Navigator.pop(context);
                   onRetry!();

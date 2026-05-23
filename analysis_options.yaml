@@ -8,6 +8,7 @@ analyzer:
     - lib/generated/intl/**
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+    - "auth/**"
   errors:
     prefer_const_constructors: info
     prefer_const_literals_to_create_immutables: info

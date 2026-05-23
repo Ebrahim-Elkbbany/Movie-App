@@ -6,15 +6,17 @@ import 'package:movie_app/core/theming/font_styles.dart';
 
 class AppTheme {
   static ThemeData get lightTheme =>
-      _buildTheme(AppColorsExtension.light, Brightness.dark);
+      _buildTheme(AppColorsExtension.light, Brightness.light, Brightness.dark);
   static ThemeData get darkTheme =>
-      _buildTheme(AppColorsExtension.dark, Brightness.light);
+      _buildTheme(AppColorsExtension.dark, Brightness.dark, Brightness.light);
 
   static ThemeData _buildTheme(
     AppColorsExtension colors,
+    Brightness brightness,
     Brightness statusIconBrightness,
   ) {
     return ThemeData(
+      brightness: brightness,
       fontFamily: 'Cairo',
       scaffoldBackgroundColor: colors.primary,
       extensions: [colors],
@@ -30,7 +32,7 @@ class AppTheme {
         fillColor: colors.surface,
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         hintStyle: FontStyles.font14Regular.copyWith(
-          color: colors.textSecondary,
+          color: colors.textPrimary,
         ),
         errorStyle: TextStyle(color: colors.error, fontSize: 12.sp),
         border: _outlineBorder(colors.surface),
@@ -44,7 +46,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colors.buttonColor,
-          foregroundColor: const Color(0xFF121312),
+          foregroundColor: const Color(0xFF282A28),
           elevation: 0,
           textStyle: FontStyles.font20SemiBold.copyWith(
             fontWeight: FontWeight.w600,
@@ -187,7 +189,7 @@ class AppTheme {
   }
 
   static OutlineInputBorder _outlineBorder(Color color) => OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10.r),
+    borderRadius: BorderRadius.circular(15.r),
     borderSide: BorderSide(color: color),
   );
 }

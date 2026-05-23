@@ -59,7 +59,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       error: error ?? this.error,
       success: success ?? this.success,
       warning: warning ?? this.warning,
-      shadowColor: shadowColor ?? this.shadowColor,
+      shadowColor: shadowColor 
     );
   }
 

@@ -74,4 +74,16 @@ class FontStyles {
     fontSize: 12.sp,
     fontFamily: 'Cairo',
   );
+
+  static TextStyle get font14 => font14Regular;
+  static TextStyle get font16Bold => TextStyle(
+    fontWeight: FontWeightHelper.bold,
+    fontSize: 16.sp,
+    fontFamily: 'Cairo',
+  );
+  static TextStyle get font18Bold => TextStyle(
+    fontWeight: FontWeightHelper.bold,
+    fontSize: 18.sp,
+    fontFamily: 'Cairo',
+  );
 }
