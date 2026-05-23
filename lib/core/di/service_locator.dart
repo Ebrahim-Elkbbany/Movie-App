@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../network/api_service.dart';
 import '../utils/change_lang/localization_cubit.dart';
@@ -19,7 +20,9 @@ Future<void> setupServiceLocator() async {
     () => SharedPrefsHelper(sharedPreferences: sharedPreferences),
   );
 
-
+getIt.registerFactory<OnBoardingCubit>(
+  () => OnBoardingCubit(),
+);
   getIt.registerSingletonAsync<ApiService>(() async => await ApiService.create());
   await getIt.isReady<ApiService>();
 

@@ -1,6 +1,7 @@
 abstract class AppRoutes {
-  static const testView = '/testView';
-  static const welcomeView = '/welcomeView';
-  static const testAnotherPage = '/testAnotherPage';
-  static const loginView = '/loginView';
+  static const String testView = '/testView';
+  static const  String welcomeView = '/welcomeView';
+  static const String  testAnotherPage = '/testAnotherPage';
+  static const String loginView = '/loginView';
+  static const String onBoardingView = '/onBoardingView';
 }

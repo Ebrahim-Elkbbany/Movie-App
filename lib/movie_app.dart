@@ -36,7 +36,7 @@ class MovieApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
-              initialRoute: AppRoutes.loginView,
+              initialRoute: AppRoutes.onBoardingView,
               onGenerateRoute: AppRouter.onGenerateRoute,
             );
           },

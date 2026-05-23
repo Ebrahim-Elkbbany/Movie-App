@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/di/service_locator.dart';
 import 'package:movie_app/core/navigation/app_routes.dart';
-import 'package:movie_app/features/login/presentation/view_model/login_cubit.dart';
+ import 'package:movie_app/features/login/presentation/view_model/login_cubit.dart';
 import 'package:movie_app/features/login/presentation/view/login_view.dart';
+import 'package:movie_app/features/onboarding/presentation/view/onboarding_view.dart';
+import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 
 abstract class AppRouter {
   static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
@@ -13,10 +15,19 @@ abstract class AppRouter {
         case AppRoutes.loginView:
           return MaterialPageRoute(
             builder: (context) => BlocProvider(
-              create: (context) => getIt.get<LoginCubit>(),
+              create: (context) => getIt<LoginCubit>(),
               child: const LoginView(),
             ),
           );
+      
+      case AppRoutes.onBoardingView:
+          return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (context) => getIt<OnBoardingCubit>(),
+              child: const OnboardingView(),
+            ),
+          );
+      
         default:
           return _errorRoute();
       }

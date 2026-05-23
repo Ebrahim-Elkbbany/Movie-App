@@ -15,9 +15,14 @@ class FontStyles {
     fontSize: 24.sp,
     fontFamily: 'Cairo',
   );
+  static TextStyle font36Bold = TextStyle(
+    fontWeight: FontWeightHelper. medium,
+    fontSize: 36.sp,
+    fontFamily: 'Cairo',
+  );
 
   static TextStyle font20SemiBold = TextStyle(
-    fontWeight: FontWeightHelper.semiBold,
+    fontWeight: FontWeightHelper.regular,
     fontSize: 20.sp,
     fontFamily: 'Cairo',
   );
