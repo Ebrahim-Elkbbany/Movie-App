@@ -20,7 +20,7 @@ Future<void> setupServiceLocator() async {
     () => SharedPrefsHelper(sharedPreferences: sharedPreferences),
   );
 
-getIt.registerFactory<OnBoardingCubit>(
+getIt.registerLazySingleton<OnBoardingCubit>(
   () => OnBoardingCubit(),
 );
   getIt.registerSingletonAsync<ApiService>(() async => await ApiService.create());

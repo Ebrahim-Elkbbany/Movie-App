@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/core/navigation/app_routes.dart';
 import 'package:movie_app/features/onboarding/presentation/view/widgets/onboarding_items.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_state.dart';
@@ -11,7 +12,7 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OnBoardingCubit, OnBoardingState>(
       builder: (context, state) {
-        final cubit = context.watch<OnBoardingCubit>();
+        final cubit = context.read<OnBoardingCubit>();
 
         return Scaffold(
           body: PageView.builder(
@@ -31,9 +32,16 @@ class OnboardingView extends StatelessWidget {
 
                 showBackButton: cubit.currentIndex > 0,
 
-                nextPage: () {
+                nextPage: () async {
                   if (cubit.isLastPage) {
-                    // navigate to login/
+                    await cubit.finishOnboarding();
+
+                    if (!context.mounted) return;
+
+                    await Navigator.pushReplacementNamed(
+                      context,
+                      AppRoutes.loginView,
+                    );
                   } else {
                     cubit.nextPage();
                   }
