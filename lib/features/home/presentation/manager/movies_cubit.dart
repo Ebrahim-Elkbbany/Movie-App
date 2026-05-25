@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/features/home/data/models/movie_model.dart';
 import 'package:movie_app/features/home/data/repos/movies_repo.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_states.dart';
 
@@ -14,7 +15,14 @@ class MoviesCubit extends Cubit<MoviesState> {
 
     result.fold(
       (failure) => emit(MoviesError(failure.errorMessage)),
-      (movies) => emit(MoviesLoaded(movies)),
-    );
-  }
+    (movies) {
+       final sortedMovies = List<MovieModel>.from(movies)
+        ..sort((a, b) => b.year.compareTo(a.year));
+
+      emit(MoviesLoaded(sortedMovies));
+    },
+  );
+}
+     
+  
 }

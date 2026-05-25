@@ -5,12 +5,14 @@ class MovieModel extends Equatable {
   final String title;
   final String imageUrl;
   final double rating;
+  final int year;
 
   const MovieModel({
     required this.id,
     required this.title,
     required this.imageUrl,
     required this.rating,
+    required this.year,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,7 @@ class MovieModel extends Equatable {
       title: json['title'] ?? '',
       imageUrl: json['medium_cover_image'] ?? '',
       rating: (json['rating'] ?? 0).toDouble(),
+      year: (json['year'] ?? 0) ,
     );
   }
 
