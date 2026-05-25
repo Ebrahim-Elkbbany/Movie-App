@@ -1,4 +1,4 @@
-abstract class OnBoardingState {}
+sealed class OnBoardingState {}
 
 class OnBoardingInitial extends OnBoardingState {}
 
