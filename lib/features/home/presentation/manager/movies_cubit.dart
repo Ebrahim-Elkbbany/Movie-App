@@ -19,10 +19,21 @@ class MoviesCubit extends Cubit<MoviesState> {
        final sortedMovies = List<MovieModel>.from(movies)
         ..sort((a, b) => b.year.compareTo(a.year));
 
-      emit(MoviesLoaded(sortedMovies));
+      emit(MoviesLoaded(movies: sortedMovies));
     },
   );
 }
-     
-  
+ 
+void changeIndex(int index) {
+  final currentState = state;
+
+  if (currentState is MoviesLoaded) {
+    emit(
+      MoviesLoaded(
+        movies: currentState.movies,
+        currentIndex: index,
+      ),
+    );
+  }
+}
 }

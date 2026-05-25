@@ -19,11 +19,15 @@ class MoviesLoading extends MoviesState {
 
 class MoviesLoaded extends MoviesState {
   final List<MovieModel> movies;
+  final int currentIndex;
 
-  const MoviesLoaded(this.movies);
-
+  const MoviesLoaded({
+    required this.movies,
+    this.currentIndex = 0,
+  });
+ 
   @override
-  List<Object?> get props => [movies];
+  List<Object?> get props => [movies, currentIndex];
 }
 
 class MoviesError extends MoviesState {
