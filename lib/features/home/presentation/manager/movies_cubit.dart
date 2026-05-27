@@ -8,6 +8,7 @@ class MoviesCubit extends Cubit<MoviesState> {
   MoviesCubit(this.moviesRepository) : super(const MoviesInitial());
 
   final MoviesRepository moviesRepository;
+  bool showAllCategories = false;
 
   Future<void> fetchMovies() async {
     emit(const MoviesLoading());
@@ -57,6 +58,21 @@ class MoviesCubit extends Cubit<MoviesState> {
       );
     }
   }
+void toggleShowAllCategories() {
+  showAllCategories = !showAllCategories;
+  final currentState = state;
+
+  if (currentState is MoviesLoaded) {
+    emit(
+      MoviesLoaded(
+        movies: currentState.movies,
+        categories: currentState.categories,
+        currentIndex: currentState.currentIndex,
+        currentCategoryIndex: currentState.currentCategoryIndex,
+       ),
+    );
+  }
+}
 
   void changeCategoryIndex(int index) {
     final currentState = state;

@@ -8,8 +8,15 @@ import 'package:movie_app/features/home/presentation/manager/movies_states.dart'
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/home_tab_content.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/movie_card.dart';
 
-class HomeTabView extends StatelessWidget {
+class HomeTabView extends StatefulWidget {
   const HomeTabView({super.key});
+
+  @override
+  State<HomeTabView> createState() => _HomeTabViewState();
+}
+
+class _HomeTabViewState extends State<HomeTabView> {
+  bool showAllCategories = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +32,7 @@ class HomeTabView extends StatelessWidget {
 
         if (state is MoviesLoaded) {
           final category = state.categories[state.currentCategoryIndex];
+
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +41,6 @@ class HomeTabView extends StatelessWidget {
 
                 HomeContent(state: state),
 
-                /// SINGLE CATEGORY ONLY
                 Padding(
                   padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
@@ -45,10 +52,18 @@ class HomeTabView extends StatelessWidget {
                       ),
 
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            showAllCategories = !showAllCategories;
+                          });
+                        },
                         child: Row(
                           children: [
-                            const Text(AppConstants.seeMore),
+                            Text(
+                              showAllCategories
+                                  ? AppConstants.showLess
+                                  : AppConstants.seeMore,
+                            ),
                             SizedBox(width: 4.w),
                             Icon(Icons.arrow_forward, size: 12.w),
                           ],
@@ -58,24 +73,39 @@ class HomeTabView extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(
-                  height: 220.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    itemCount: category.movies.length,
-                    separatorBuilder: (_, _) => SizedBox(width: 10.w),
-                    itemBuilder: (context, movieIndex) {
-                      final movie = category.movies[movieIndex];
-
-                      return MoviesCard(
-                        movie: movie,
-                        width: 150.w,
+                showAllCategories
+                    ? GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        itemCount: category.movies.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.65,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                        itemBuilder: (context, index) {
+                          return MoviesCard(movie: category.movies[index]);
+                        },
+                      )
+                    : SizedBox(
                         height: 220.h,
-                      );
-                    },
-                  ),
-                ),
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          itemCount: category.movies.length,
+                          separatorBuilder: (_, __) => SizedBox(width: 10.w),
+                          itemBuilder: (context, movieIndex) {
+                            return MoviesCard(
+                              movie: category.movies[movieIndex],
+                              width: 150.w,
+                              height: 220.h,
+                            );
+                          },
+                        ),
+                      ),
               ],
             ),
           );

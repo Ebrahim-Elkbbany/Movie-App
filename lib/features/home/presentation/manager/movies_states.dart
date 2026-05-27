@@ -21,19 +21,27 @@ class MoviesLoading extends MoviesState {
 class MoviesLoaded extends MoviesState {
   final List<MovieModel> movies;
   final int currentIndex;
-final List<MovieCategoryModel> categories;
+  final List<MovieCategoryModel> categories;
   final int currentCategoryIndex;
+ 
   const MoviesLoaded({
     required this.movies,
-    this.currentIndex = 0,
     required this.categories,
+    this.currentIndex = 0,
     this.currentCategoryIndex = 0,
-  });
- 
-  @override
-  List<Object?> get props => [movies, currentIndex, categories, currentCategoryIndex];
-}
+   });
 
+  @override
+  List<Object?> get props => [
+        movies,
+        currentIndex,
+        categories,
+        currentCategoryIndex,
+       ];
+}
+ 
+ 
+class MoviesRefreshState extends MoviesState {}
 class MoviesError extends MoviesState {
   final String message;
 
