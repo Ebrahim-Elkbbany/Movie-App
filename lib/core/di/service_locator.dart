@@ -2,6 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/features/home/data/data_sources/movies_remote_data_source.dart';
+import 'package:movie_app/features/home/data/data_sources/movies_remote_data_source_impl.dart';
+import 'package:movie_app/features/home/data/repos/movies_repo.dart';
+import 'package:movie_app/features/home/data/repos/movies_repo_impl.dart';
+import 'package:movie_app/features/home/presentation/manager/movies_cubit.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:movie_app/core/network/api_service.dart';
@@ -39,7 +44,13 @@ getIt.registerLazySingleton<OnBoardingCubit>(
       getIt<FirebaseFirestore>(),
     ),
   );
-
+getIt.registerLazySingleton<MoviesRemoteDataSource>(
+  () => MoviesRemoteDataSourceImpl(getIt<ApiService>()),
+);getIt.registerLazySingleton<MoviesRepository>(
+  () => MoviesRepositoryImpl(getIt<MoviesRemoteDataSource>()),
+);getIt.registerFactory(
+  () => MoviesCubit(getIt<MoviesRepository>()),
+);
   getIt.registerLazySingleton<ProfileRepo>(
     () => ProfileRepoImpl(
       firebaseAuth: getIt<FirebaseAuth>(),

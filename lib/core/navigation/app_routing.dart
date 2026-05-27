@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/di/service_locator.dart';
 import 'package:movie_app/core/navigation/app_routes.dart';
+import 'package:movie_app/features/home/presentation/view/home_view.dart';
   import 'package:movie_app/features/onboarding/presentation/view/onboarding_view.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:movie_app/features/auth/presentation/manager/login_cubit/login_cubit.dart';
@@ -64,6 +65,10 @@ abstract class AppRouter {
               create: (_) => getIt<LoginCubit>(),
               child: const ForgetPasswordView(),
             ),
+          );
+        case AppRoutes.homeView:
+          return MaterialPageRoute(
+            builder: (context) => const HomeView(),
           );
 
         case AppRoutes.profileView:
