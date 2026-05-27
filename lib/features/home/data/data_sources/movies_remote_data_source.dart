@@ -5,4 +5,5 @@ import 'package:movie_app/core/failure/failures.dart';
 
 abstract class MoviesRemoteDataSource {
   Future<Either<Failure, List<MovieModel>>> getMovies();
+  Future<Either<Failure, List<MovieModel>>> getMoviesByGenre({ required String genre});
 }

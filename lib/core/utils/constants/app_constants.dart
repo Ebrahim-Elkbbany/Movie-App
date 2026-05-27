@@ -2,6 +2,7 @@ abstract class AppConstants {
   static const String whatsappNumber = '201050480007';
   static const String whatsappMsg = 'Hello Enza Team';
   static const String defaultCity = 'Alexandria';
+  static const String seeMore = 'See More';
   static const String onBoarding1Title = 'Find Your Next\n Favorite Movie Here';
   static const String onBoarding1Description =
       'Get access to a huge library of movies\n to suit all tastes. You will surely like it.';

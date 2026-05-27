@@ -10,11 +10,33 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
 
   MoviesRemoteDataSourceImpl(this.apiService);
   @override
- @override
-Future<Either<Failure, List<MovieModel>>> getMovies() async {
+ Future<Either<Failure, List<MovieModel>>> getMovies() async {
   try {
     final response = await apiService.get(
       urlEndPoint: ApisEndpoints.listMovies,
+    );
+
+    return response.fold(
+      (failure) => Left(failure),
+      (data) {
+        final movies = (data['data']['movies'] as List)
+            .map((movie) => MovieModel.fromJson(movie))
+            .toList();
+
+        return Right(movies);
+      },
+    );
+  } catch (e) {
+    return Left(ServerFailure(e.toString()));
+  }
+}
+
+@override
+Future<Either<Failure, List<MovieModel>>> getMoviesByGenre({required String genre}) async {
+  try {
+    final response = await apiService.get(
+      urlEndPoint: ApisEndpoints.listMovies,
+      queryParameters: {'genre': genre},
     );
 
     return response.fold(

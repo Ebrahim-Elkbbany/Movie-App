@@ -57,7 +57,7 @@ class HomeContent extends StatelessWidget {
                 }).toList(),
                 options: CarouselOptions(
                   height: 352.h,
-                  viewportFraction: 0.6,
+                  viewportFraction: 0.55,
                   enlargeCenterPage: true,
                   enlargeFactor: 0.36,
                   initialPage: 0,

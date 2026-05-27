@@ -31,9 +31,7 @@ class AppTheme {
         filled: true,
         fillColor: colors.surface,
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-        hintStyle: FontStyles.font14Regular.copyWith(
-          color: colors.textPrimary,
-        ),
+        hintStyle: FontStyles.font14Regular.copyWith(color: colors.textPrimary),
         errorStyle: TextStyle(color: colors.error, fontSize: 12.sp),
         border: _outlineBorder(colors.surface),
         enabledBorder: _outlineBorder(colors.surface),
@@ -75,7 +73,9 @@ class AppTheme {
 
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: colors.primary,
+          padding: EdgeInsets.zero,
+          minimumSize: Size(0, 0),
+          foregroundColor: colors.buttonColor,
           textStyle: FontStyles.font14SemiBold,
         ),
       ),

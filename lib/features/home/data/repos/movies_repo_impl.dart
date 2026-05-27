@@ -13,4 +13,9 @@ class MoviesRepositoryImpl implements MoviesRepository {
   Future<Either<Failure, List<MovieModel>>> getMovies() {
     return remoteDataSource.getMovies();
   }
+  
+  @override
+  Future<Either<Failure, List<MovieModel>>> getMoviesByGenre({required String genre}) {
+   return remoteDataSource.getMoviesByGenre(genre: genre);
+  }
 }
