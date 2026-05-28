@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +11,10 @@ import 'package:movie_app/core/widgets/buttons/custom_bottom_button.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_details_cubit.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_details_state.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/movie_screen_shot_item.dart';
-import 'package:movie_app/features/home/presentation/view/home_tab/widgets/custom_info_container.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/custom_item_cast.dart';
+import 'package:movie_app/features/home/presentation/view/home_tab/widgets/movie_details_header.dart';
+import 'package:movie_app/features/home/presentation/view/home_tab/widgets/movie_stats_section.dart';
+import 'package:movie_app/features/home/presentation/view/home_tab/widgets/section_title.dart';
 
 class MovieDetailsView extends StatelessWidget {
   final int id;
@@ -62,58 +63,8 @@ class MovieDetailsView extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
-                      height: 640.h,
-                      width: double.infinity,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        fit: StackFit.expand,
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: movie.backgroundImage,
-                            fit: BoxFit.cover,
-                          ),
-
-                          Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  AppColorsExtension.light.primary.withValues(
-                                    alpha: 0.2,
-                                  ),
-                                  AppColorsExtension.light.primary.withValues(
-                                    alpha: 0.99,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Image.asset(AppImages.play),
-                          Positioned(
-                            bottom: 10.h,
-                            child: Text(
-                              movie.year.toString(),
-                              style: Theme.of(context).textTheme.titleLarge!
-                                  .copyWith(
-                                    color:
-                                        AppColorsExtension.light.textSecondary,
-                                  ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 50.h,
-                            child: Text(
-                              movie.title,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    MovieDetailsHeader(movie: movie),
                     CustomBottomButton(
                       text: AppConstants.watch,
                       onPressed: () {},
@@ -125,57 +76,16 @@ class MovieDetailsView extends StatelessWidget {
                             color: Colors.white,
                           ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomInfoContainer(
-                            text: movie.likecount.toString(),
-                            icon: AppIcons.heart,
-                          ),
-                          CustomInfoContainer(
-                            text: movie.runtime.toString(),
-                            icon: AppIcons.clock,
-                          ),
-                          CustomInfoContainer(
-                            text: movie.rating.toString(),
-                            icon: AppIcons.star,
-                          ),
-                        ],
-                      ),
+                    MovieStatsSection(movie: movie),
+                    SectionTitle(title: AppConstants.screenshots),
+
+                    Column(
+                      children: movie.screenshots.map((image) {
+                        return MovieScreenshotItem(imageUrl: image);
+                      }).toList(),
                     ),
-                    Padding(
-                      padding: REdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        AppConstants.screenShots,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                    ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: movie.screenshots.length,
-                      itemBuilder: (context, index) {
-                        return MovieScreenshotItem(
-                          imageUrl: movie.screenshots[index],
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: REdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        AppConstants.summary,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
+                    const SectionTitle(title: AppConstants.summary),
+
                     Padding(
                       padding: REdgeInsets.symmetric(
                         horizontal: 16.0,
@@ -188,40 +98,19 @@ class MovieDetailsView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: REdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        AppConstants.cast,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                    ListView.builder(
-                      padding: EdgeInsets.zero,
-
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: movie.cast.length,
-                      itemBuilder: (context, index) {
-                        final cast = movie.cast[index];
-
+                    const SectionTitle(title: AppConstants.cast),
+                    Column(
+                      children: movie.cast.map((cast) {
                         return CustomCastItem(
                           image: cast.image,
                           name: cast.name,
                           character: cast.character,
                         );
-                      },
+                      }).toList(),
                     ),
                     SizedBox(height: 16.h),
-                    Padding(
-                      padding: REdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        AppConstants.genres,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
+                    const SectionTitle(title: AppConstants.genres),
+
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 16.w,

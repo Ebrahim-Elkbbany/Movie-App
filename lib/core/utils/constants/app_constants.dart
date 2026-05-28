@@ -5,7 +5,7 @@ abstract class AppConstants {
   static const String seeMore = 'See More';
   static const String showLess = 'Show Less';
   static const String watch  = 'Watch';
-  static const String screenShots = 'Screen Shots';
+  static const String screenshots = 'Screen Shots';
   static const String summary = 'Summary';
   static const String cast = 'Cast';
   static const String genres = 'Genres';
