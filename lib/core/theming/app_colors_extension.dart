@@ -122,6 +122,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     success: _secondaryGreen,
     warning: _warningLight,
     shadowColor: _darkShadow,
+    
   );
 
   static const dark = AppColorsExtension(

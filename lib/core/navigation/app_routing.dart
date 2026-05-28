@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/di/service_locator.dart';
 import 'package:movie_app/core/navigation/app_routes.dart';
+import 'package:movie_app/features/home/presentation/view/home_tab/movie_details_view.dart';
 import 'package:movie_app/features/home/presentation/view/home_view.dart';
-  import 'package:movie_app/features/onboarding/presentation/view/onboarding_view.dart';
+import 'package:movie_app/features/onboarding/presentation/view/onboarding_view.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:movie_app/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:movie_app/features/auth/presentation/manager/signup_cubit/signup_cubit.dart';
@@ -23,9 +24,7 @@ abstract class AppRouter {
         case AppRoutes.initialRoute:
           final user = FirebaseAuth.instance.currentUser;
           if (user != null) {
-            return MaterialPageRoute(
-              builder: (context) => const ProfileView(),
-            );
+            return MaterialPageRoute(builder: (context) => const ProfileView());
           }
           return MaterialPageRoute(
             builder: (context) => BlocProvider(
@@ -33,16 +32,15 @@ abstract class AppRouter {
               child: const LoginView(),
             ),
           );
-      
-      case AppRoutes.onBoardingView:
+
+        case AppRoutes.onBoardingView:
           return MaterialPageRoute(
             builder: (context) => BlocProvider(
               create: (context) => getIt<OnBoardingCubit>(),
               child: const OnboardingView(),
             ),
           );
-      
-               
+
         case AppRoutes.loginView:
           return MaterialPageRoute(
             builder: (context) => BlocProvider(
@@ -67,14 +65,15 @@ abstract class AppRouter {
             ),
           );
         case AppRoutes.homeView:
+          return MaterialPageRoute(builder: (context) => const HomeView());
+        case AppRoutes.detailsView:
+           final id = routeSettings.arguments as int;
           return MaterialPageRoute(
-            builder: (context) => const HomeView(),
+            builder: (context) => MovieDetailsView(id:  id),
           );
 
         case AppRoutes.profileView:
-          return MaterialPageRoute(
-            builder: (context) => const ProfileView(),
-          );
+          return MaterialPageRoute(builder: (context) => const ProfileView());
 
         case AppRoutes.editProfileView:
           final userModel = routeSettings.arguments as UserModel;

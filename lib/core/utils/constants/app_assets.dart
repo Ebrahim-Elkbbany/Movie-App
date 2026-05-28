@@ -22,7 +22,8 @@ abstract class AppImages {
   static const String avatar8 = '${base}png/avatar8.png';
   static const String avatar9 = '${base}png/avatar9.png';
   static const String empty = '${base}png/empty.png';
-}
+  static const String play = '${base}png/play.png';
+} 
 
 abstract class AppSvgImages {
   static const String base = 'assets/images/svg/';
@@ -55,6 +56,7 @@ abstract class AppIcons {
   static const String base = 'assets/icons/';
 
   static const String email = '${base}email.svg';
+  static const String saved = '${base}saved.svg';
   static const String person = '${base}person.svg';
   static const String user = '${base}user.svg';
   static const String search = '${base}search.svg';
