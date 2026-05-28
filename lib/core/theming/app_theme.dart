@@ -74,7 +74,7 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
-          minimumSize: Size(0, 0),
+          minimumSize: const Size(0, 0),
           foregroundColor: colors.buttonColor,
           textStyle: FontStyles.font14SemiBold,
         ),
@@ -121,8 +121,8 @@ class AppTheme {
         bodyMedium: FontStyles.font14Regular.copyWith(
           color: colors.textSecondary,
         ),
-        bodySmall: FontStyles.font12Regular.copyWith(
-          color: colors.textSecondary,
+        bodySmall: FontStyles.font24Bold.copyWith(
+          color: colors.textPrimary,
         ),
         labelLarge: FontStyles.font16SemiBold.copyWith(
           color: colors.textPrimary,

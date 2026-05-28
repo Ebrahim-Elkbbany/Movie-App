@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => getIt<MoviesCubit>()..fetchMovies(),
-        child: HomeTabView(),
+        child: const HomeTabView(),
       ),
     );
   }

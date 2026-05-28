@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/core/navigation/app_routes.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_cubit.dart';
@@ -53,7 +54,16 @@ class HomeContent extends StatelessWidget {
 
               CarouselSlider(
                 items: featured.map((movie) {
-                  return MoviesCard(movie: movie);
+                  return MoviesCard(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.detailsView,
+                        arguments: movie.id,
+                      );
+                    },
+                    movie: movie,
+                  );
                 }).toList(),
                 options: CarouselOptions(
                   height: 352.h,

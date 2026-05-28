@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/core/navigation/app_routes.dart';
 import 'package:movie_app/core/utils/constants/app_constants.dart';
 
 import 'package:movie_app/features/home/presentation/manager/movies_cubit.dart';
@@ -87,7 +88,16 @@ class _HomeTabViewState extends State<HomeTabView> {
                               mainAxisSpacing: 10,
                             ),
                         itemBuilder: (context, index) {
-                          return MoviesCard(movie: category.movies[index]);
+                          return MoviesCard(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                AppRoutes.detailsView,
+                                arguments: category.movies[index].id,
+                              );
+                            },
+                            movie: category.movies[index],
+                          );
                         },
                       )
                     : SizedBox(
@@ -96,9 +106,16 @@ class _HomeTabViewState extends State<HomeTabView> {
                           scrollDirection: Axis.horizontal,
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           itemCount: category.movies.length,
-                          separatorBuilder: (_, __) => SizedBox(width: 10.w),
+                          separatorBuilder: (_, _) => SizedBox(width: 10.w),
                           itemBuilder: (context, movieIndex) {
                             return MoviesCard(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.detailsView,
+                                  arguments: category.movies[movieIndex].id,
+                                );
+                              },
                               movie: category.movies[movieIndex],
                               width: 150.w,
                               height: 220.h,

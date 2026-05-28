@@ -16,7 +16,7 @@ class FontStyles {
     fontFamily: 'Cairo',
   );
   static TextStyle font36Bold = TextStyle(
-    fontWeight: FontWeightHelper. medium,
+    fontWeight: FontWeightHelper.medium,
     fontSize: 36.sp,
     fontFamily: 'Cairo',
   );

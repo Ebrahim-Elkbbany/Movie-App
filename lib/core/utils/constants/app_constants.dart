@@ -4,6 +4,11 @@ abstract class AppConstants {
   static const String defaultCity = 'Alexandria';
   static const String seeMore = 'See More';
   static const String showLess = 'Show Less';
+  static const String watch  = 'Watch';
+  static const String screenshots = 'Screen Shots';
+  static const String summary = 'Summary';
+  static const String cast = 'Cast';
+  static const String genres = 'Genres';
   static const String onBoarding1Title = 'Find Your Next\n Favorite Movie Here';
   static const String onBoarding1Description =
       'Get access to a huge library of movies\n to suit all tastes. You will surely like it.';
