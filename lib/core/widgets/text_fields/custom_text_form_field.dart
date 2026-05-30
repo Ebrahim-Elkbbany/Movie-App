@@ -15,6 +15,9 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? prefixIcon;
   final Widget? prefixWidget;
   final Function()? suffixIconTap;
+  final void Function()? onTap;
+  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   final String? upperText;
   final Color? backgroundColor;
   final Color? upperTextColor;
@@ -32,7 +35,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextStyle? hintStyle;
   final String? initialValue;
 
-  const CustomTextFormField({
+    CustomTextFormField({
     super.key,
     required this.hintText,
     this.controller,
@@ -60,6 +63,9 @@ class CustomTextFormField extends StatelessWidget {
     this.inputTextStyle,
     this.hintStyle,
     this.initialValue,
+    this.onTap,
+    this.onChanged,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -74,7 +80,8 @@ class CustomTextFormField extends StatelessWidget {
             fontWeight: upperTextFontWeight,
             fontSize: upperTextFontSize,
           ),
-        TextFormField(
+        TextFormField(onTap: onTap,onChanged: onChanged,onFieldSubmitted: onFieldSubmitted,
+          cursorColor: inputTextStyle?.color,
           readOnly: isReadOnly,
           controller: controller,
           initialValue: initialValue,
@@ -93,17 +100,19 @@ class CustomTextFormField extends StatelessWidget {
             contentPadding: contentPadding,
             focusedBorder: focusedBorder,
             enabledBorder: enabledBorder,
-            suffixIcon: suffixWidget ?? (suffixIcon != null
-                ? TextFieldSuffixIcon(
-                    icon: suffixIcon!,
-                    onTap: suffixIconTap,
-                  )
-                : null),
-            prefixIcon: prefixWidget ?? (prefixIcon != null
-                ? TextFieldPrefixIcon(
-                    icon: prefixIcon!,
-                  )
-                : null),
+            suffixIcon:
+                suffixWidget ??
+                (suffixIcon != null
+                    ? TextFieldSuffixIcon(
+                        icon: suffixIcon!,
+                        onTap: suffixIconTap,
+                      )
+                    : null),
+            prefixIcon:
+                prefixWidget ??
+                (prefixIcon != null
+                    ? TextFieldPrefixIcon(icon: prefixIcon!)
+                    : null),
           ),
         ),
       ],

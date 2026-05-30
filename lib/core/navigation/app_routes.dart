@@ -9,6 +9,7 @@ abstract class AppRoutes {
   static const forgetPasswordView = 'forgetPasswordView';
   static const homeView = 'homeView';
   static const detailsView = 'detailsView';
+  static const searchView = 'searchView';
   static const profileView = 'profileView';
   static const editProfileView = 'editProfileView';
   static const initialRoute = '/';

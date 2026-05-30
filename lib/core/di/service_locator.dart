@@ -6,12 +6,17 @@ import 'package:movie_app/features/home/data/data_sources/movies_details_data_so
 import 'package:movie_app/features/home/data/data_sources/movies_details_data_source_impl.dart';
 import 'package:movie_app/features/home/data/data_sources/movies_remote_data_source.dart';
 import 'package:movie_app/features/home/data/data_sources/movies_remote_data_source_impl.dart';
+import 'package:movie_app/features/home/data/data_sources/search_data_source.dart';
+import 'package:movie_app/features/home/data/data_sources/search_data_source_impl.dart';
 import 'package:movie_app/features/home/data/repos/movies_details_repo.dart';
 import 'package:movie_app/features/home/data/repos/movies_details_repo_impl.dart';
 import 'package:movie_app/features/home/data/repos/movies_repo.dart';
 import 'package:movie_app/features/home/data/repos/movies_repo_impl.dart';
+import 'package:movie_app/features/home/data/repos/search_repo.dart';
+import 'package:movie_app/features/home/data/repos/search_repo_impl.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_cubit.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_details_cubit.dart';
+import 'package:movie_app/features/home/presentation/manager/search_cubit.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:movie_app/core/network/api_service.dart';
@@ -63,8 +68,17 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<MoviesRepository>(
     () => MoviesRepositoryImpl(getIt<MoviesRemoteDataSource>()),
   );
+  getIt.registerLazySingleton<SearchDataSource>(
+    () => SearchDataSourceImpl(apiService: getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<SearchRepo>(
+    () => SearchRepoImpl(searchDataSource: getIt<SearchDataSource>()),
+  );
   getIt.registerFactory(() => MoviesCubit(getIt<MoviesRepository>()));
-  getIt.registerFactory(() => MoviesDetailsCubit(getIt<MoviesDetailsRepository>()));
+  getIt.registerFactory(() => SearchCubit(getIt<SearchRepo>()));
+  getIt.registerFactory(
+    () => MoviesDetailsCubit(getIt<MoviesDetailsRepository>()),
+  );
   getIt.registerLazySingleton<ProfileRepo>(
     () => ProfileRepoImpl(
       firebaseAuth: getIt<FirebaseAuth>(),

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/di/service_locator.dart';
 import 'package:movie_app/core/navigation/app_routes.dart';
+import 'package:movie_app/features/home/presentation/manager/search_cubit.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/movie_details_view.dart';
 import 'package:movie_app/features/home/presentation/view/home_view.dart';
+import 'package:movie_app/features/home/presentation/view/search_tab/search_view_tab.dart';
 import 'package:movie_app/features/onboarding/presentation/view/onboarding_view.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:movie_app/features/auth/presentation/manager/login_cubit/login_cubit.dart';
@@ -67,11 +69,18 @@ abstract class AppRouter {
         case AppRoutes.homeView:
           return MaterialPageRoute(builder: (context) => const HomeView());
         case AppRoutes.detailsView:
-           final id = routeSettings.arguments as int;
+          final id = routeSettings.arguments as int;
           return MaterialPageRoute(
-            builder: (context) => MovieDetailsView(id:  id),
+            builder: (context) => MovieDetailsView(id: id),
           );
 
+     case AppRoutes.searchView:
+  return MaterialPageRoute(
+    builder: (context) => BlocProvider(
+      create: (_) => getIt<SearchCubit>(),
+      child: const SearchViewTab(),
+    ),
+  );
         case AppRoutes.profileView:
           return MaterialPageRoute(builder: (context) => const ProfileView());
 

@@ -28,7 +28,7 @@ class MovieApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
 
-          initialRoute: AppRoutes.homeView,
+          initialRoute: AppRoutes.searchView,
           //  isOnboardingSeen
           //     ? AppRoutes.loginView
           //     : AppRoutes.onBoardingView,
