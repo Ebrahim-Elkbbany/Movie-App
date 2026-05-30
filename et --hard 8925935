@@ -1,0 +1,19 @@
+[33m641436d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/onboarding[m[33m)[m resolve merge conflicts between development and feature/onboarding
+[33m8925935[m[33m ([m[1;31morigin/feature/onboarding[m[33m)[m refactor(onboarding):add onboarding persistence and navigation
+[33m6f65c05[m feat: add onboarding screens
+[33m30e6832[m[33m ([m[1;31morigin/development[m[33m, [m[1;32mdevelopment[m[33m)[m Merge pull request #1 from Ebrahim-Elkbbany/feature/profile
+[33me226afc[m[33m ([m[1;31morigin/feature/profile[m[33m)[m fix(profile): set explicit Tab height to resolve SliverGeometry layoutExtent crash
+[33m9d58a0f[m feat(profile): restyle tabbar and avatar picker to match premium design
+[33m1f76683[m feat(profile): implement edit profile UI with avatar squircles selection and transactional safe account deletion
+[33m730e42e[m[33m ([m[1;31morigin/feature/auth[m[33m)[m Migrate auth assets to app_assets.dart to align with development branch
+[33m952bb45[m Merge development into feature/auth and resolve conflicts
+[33m776c1fb[m Finalize Auth UI, fix routing and password reset bugs
+[33m605dc5b[m chore: setup AppConstants
+[33m3133846[m refactor: rename Manger File to ViewModel
+[33mc2fb796[m chore: setup images and packages
+[33m8041102[m chore(ref): add reference auth feature and firebase_services for pattern guidance
+[33mbbb1d1c[m[33m ([m[1;31morigin/feature/wishlist[m[33m, [m[1;31morigin/feature/search[m[33m, [m[1;31morigin/feature/movie-details[m[33m, [m[1;31morigin/feature/layout[m[33m, [m[1;31morigin/feature/home[m[33m, [m[1;31morigin/feature/history[m[33m, [m[1;31morigin/feature/browse[m[33m, [m[1;31morigin/base-structure[m[33m, [m[1;32mfeature/home[m[33m)[m style(core): finalize theme and colors for team, remove comments
+[33m2d8f4b0[m chore: setup images and icons
+[33me5b23ce[m[33m ([m[1;31morigin/feature/splash[m[33m, [m[1;32mfeature/splash[m[33m)[m feat: add splash screen and logo for app
+[33md4d54b3[m init dev branch
+[33m6dc36c9[m[33m ([m[1;32mmain[m[33m)[m init app

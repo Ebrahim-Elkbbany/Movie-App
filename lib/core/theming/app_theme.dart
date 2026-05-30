@@ -18,8 +18,7 @@ class AppTheme {
     return ThemeData(
       brightness: brightness,
       fontFamily: 'Cairo',
-      scaffoldBackgroundColor: colors.background,
-      canvasColor: colors.background,
+      scaffoldBackgroundColor: colors.primary,
       extensions: [colors],
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: colors.primary,
@@ -32,9 +31,7 @@ class AppTheme {
         filled: true,
         fillColor: colors.surface,
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-        hintStyle: FontStyles.font14Regular.copyWith(
-          color: colors.textPrimary,
-        ),
+        hintStyle: FontStyles.font14Regular.copyWith(color: colors.textPrimary),
         errorStyle: TextStyle(color: colors.error, fontSize: 12.sp),
         border: _outlineBorder(colors.surface),
         enabledBorder: _outlineBorder(colors.surface),
@@ -49,10 +46,12 @@ class AppTheme {
           backgroundColor: colors.buttonColor,
           foregroundColor: const Color(0xFF282A28),
           elevation: 0,
-          textStyle: FontStyles.font16SemiBold,
+          textStyle: FontStyles.font20SemiBold.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
           minimumSize: Size(double.infinity, 52.h),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.all(Radius.circular(15.r)),
           ),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         ),
@@ -74,7 +73,9 @@ class AppTheme {
 
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: colors.primary,
+          padding: EdgeInsets.zero,
+          minimumSize: const Size(0, 0),
+          foregroundColor: colors.buttonColor,
           textStyle: FontStyles.font14SemiBold,
         ),
       ),
@@ -104,11 +105,12 @@ class AppTheme {
         displayLarge: FontStyles.font50SemiBold.copyWith(
           color: colors.textPrimary,
         ),
-        headlineMedium: FontStyles.font24Bold.copyWith(
+        headlineMedium: FontStyles.font36Bold.copyWith(
           color: colors.textPrimary,
         ),
         titleLarge: FontStyles.font20SemiBold.copyWith(
           color: colors.textPrimary,
+          letterSpacing: 0.15,
         ),
         titleMedium: FontStyles.font18SemiBold.copyWith(
           color: colors.textPrimary,
@@ -119,8 +121,8 @@ class AppTheme {
         bodyMedium: FontStyles.font14Regular.copyWith(
           color: colors.textSecondary,
         ),
-        bodySmall: FontStyles.font12Regular.copyWith(
-          color: colors.textSecondary,
+        bodySmall: FontStyles.font24Bold.copyWith(
+          color: colors.textPrimary,
         ),
         labelLarge: FontStyles.font16SemiBold.copyWith(
           color: colors.textPrimary,
@@ -157,8 +159,12 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: colors.surface,
         selectedColor: colors.primary,
-        labelStyle: FontStyles.font12Regular.copyWith(color: colors.textPrimary),
-        secondaryLabelStyle: FontStyles.font12Regular.copyWith(color: const Color(0xFF121312)),
+        labelStyle: FontStyles.font12Regular.copyWith(
+          color: colors.textPrimary,
+        ),
+        secondaryLabelStyle: FontStyles.font12Regular.copyWith(
+          color: const Color(0xFF121312),
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.r),
         ),
@@ -176,14 +182,9 @@ class AppTheme {
         dividerColor: Colors.transparent,
       ),
 
-      iconTheme: IconThemeData(
-        color: colors.iconColor,
-        size: 24.sp,
-      ),
+      iconTheme: IconThemeData(color: colors.iconColor, size: 24.sp),
 
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: colors.primary,
-      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: colors.primary),
     );
   }
 

@@ -13,6 +13,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
   final Color error;
   final Color success;
   final Color warning;
+  final Color shadowColor;
 
   const AppColorsExtension({
     required this.primary,
@@ -27,6 +28,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     required this.error,
     required this.success,
     required this.warning,
+    required this.shadowColor,
   });
 
   @override
@@ -57,6 +59,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       error: error ?? this.error,
       success: success ?? this.success,
       warning: warning ?? this.warning,
+      shadowColor: shadowColor,
     );
   }
 
@@ -79,6 +82,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       error: Color.lerp(error, other.error, t)!,
       success: Color.lerp(success, other.success, t)!,
       warning: Color.lerp(warning, other.warning, t)!,
+      shadowColor: Color.lerp(shadowColor, other.shadowColor, t)!,
     );
   }
 
@@ -90,7 +94,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
   static const Color _white = Color(0xFFFFFFFF);
   static const Color _lightBg = Color(0xFFF5F5F5);
   static const Color _lightSurface = Color(0xFFE8E8E8);
-
+  static const Color _darkShadow = Color(0xFF2A2C30);
   static const Color _black = Color(0xFF1A1A1A);
   static const Color _grayA9 = Color(0xFFA9A9A9);
   static const Color _whiteD9 = Color(0xFFD9D9D9);
@@ -105,9 +109,9 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
   static const Color _warningDark = Color(0xFFFFA726);
 
   static const light = AppColorsExtension(
-    primary: _primaryYellow,
+    primary: _darkBg,
     secondary: _secondaryGreen,
-    textPrimary: _black,
+    textPrimary: _white,
     textSecondary: _grayA9,
     background: _lightBg,
     surface: _lightSurface,
@@ -117,6 +121,8 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     error: _errorLight,
     success: _secondaryGreen,
     warning: _warningLight,
+    shadowColor: _darkShadow,
+    
   );
 
   static const dark = AppColorsExtension(
@@ -132,5 +138,6 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     error: _error,
     success: _secondaryGreen,
     warning: _warningDark,
+    shadowColor: _darkShadow,
   );
 }
