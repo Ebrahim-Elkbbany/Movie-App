@@ -19,6 +19,19 @@ class AppTheme {
       brightness: brightness,
       fontFamily: 'Cairo',
       scaffoldBackgroundColor: colors.background,
+      colorScheme: ColorScheme(
+        brightness: brightness,
+        primary: colors.primary,
+        onPrimary: brightness == Brightness.dark
+            ? const Color(0xFF121312)
+            : Colors.white,
+        secondary: colors.secondary,
+        onSecondary: Colors.white,
+        error: colors.error,
+        onError: Colors.white,
+        surface: colors.surface,
+        onSurface: colors.textPrimary,
+      ),
       extensions: [colors],
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: colors.primary,
