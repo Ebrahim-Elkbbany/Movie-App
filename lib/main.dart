@@ -18,7 +18,6 @@ void main() {
       };
 
       await ScreenUtil.ensureScreenSize();
-      debugInvertOversizedImages = true;
 
       await setupServiceLocator();
 
