@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/utils/constants/app_constants.dart';
 import 'package:movie_app/core/widgets/buttons/custom_button_primary.dart';
 
@@ -28,7 +29,7 @@ class OnboardingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colors = Theme.of(context).extension<AppColorsExtension>()!;
 
     return Container(
       decoration: BoxDecoration(
@@ -44,7 +45,7 @@ class OnboardingItem extends StatelessWidget {
 
               color: isFirstPage
                   ? Colors.transparent
-                  : theme.scaffoldBackgroundColor,
+                  : colors.background,
             ),
 
             child: Padding(
@@ -55,7 +56,7 @@ class OnboardingItem extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: theme.textTheme.headlineMedium,
+                    style: Theme.of(context).textTheme.headlineMedium,
                     textAlign: TextAlign.center,
                   ),
 
@@ -66,7 +67,7 @@ class OnboardingItem extends StatelessWidget {
 
                     Text(
                       description!,
-                      style: theme.textTheme.titleLarge,
+                      style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.center,
                     ),
                   ],

@@ -18,7 +18,7 @@ class AppTheme {
     return ThemeData(
       brightness: brightness,
       fontFamily: 'Cairo',
-      scaffoldBackgroundColor: colors.primary,
+      scaffoldBackgroundColor: colors.background,
       extensions: [colors],
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: colors.primary,

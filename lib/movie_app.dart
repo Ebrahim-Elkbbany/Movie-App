@@ -22,16 +22,14 @@ class MovieApp extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           navigatorKey: navigatorKey,
-
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
-
-          initialRoute: AppRoutes.searchView,
-          //  isOnboardingSeen
-          //     ? AppRoutes.loginView
-          //     : AppRoutes.onBoardingView,
+          initialRoute: 
+           isOnboardingSeen
+            ? AppRoutes.loginView
+             : AppRoutes.onBoardingView,
           onGenerateRoute: AppRouter.onGenerateRoute,
         );
       },
