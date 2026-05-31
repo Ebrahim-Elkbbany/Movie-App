@@ -128,11 +128,106 @@ class ProfileRepoImpl implements ProfileRepo {
         .collection('users')
         .doc(user.uid)
         .collection('history')
+        .orderBy('watchedAt', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data();
               data['id'] = doc.id;
               return data;
             }).toList());
+  }
+
+  @override
+  Future<Either<Failure, void>> addToWatchlist(
+      Map<String, dynamic> movieData) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) return left(ServerFailure('User not logged in'));
+
+      final movieId = movieData['movieId'].toString();
+      await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('watchlist')
+          .doc(movieId)
+          .set({...movieData, 'addedAt': FieldValue.serverTimestamp()});
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeFromWatchlist(String movieId) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) return left(ServerFailure('User not logged in'));
+
+      await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('watchlist')
+          .doc(movieId)
+          .delete();
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addToHistory(
+      Map<String, dynamic> movieData) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) return left(ServerFailure('User not logged in'));
+
+      final movieId = movieData['movieId'].toString();
+      await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('history')
+          .doc(movieId)
+          .set({...movieData, 'watchedAt': FieldValue.serverTimestamp()});
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> isInWatchlist(String movieId) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) return left(ServerFailure('User not logged in'));
+
+      final doc = await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('watchlist')
+          .doc(movieId)
+          .get();
+      return right(doc.exists);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> isInHistory(String movieId) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) return left(ServerFailure('User not logged in'));
+
+      final doc = await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('history')
+          .doc(movieId)
+          .get();
+      return right(doc.exists);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
   }
 }

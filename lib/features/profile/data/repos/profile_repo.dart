@@ -9,4 +9,9 @@ abstract class ProfileRepo {
   Future<Either<Failure, void>> deleteAccount();
   Stream<List<Map<String, dynamic>>> getWatchlist();
   Stream<List<Map<String, dynamic>>> getHistory();
+  Future<Either<Failure, void>> addToWatchlist(Map<String, dynamic> movieData);
+  Future<Either<Failure, void>> removeFromWatchlist(String movieId);
+  Future<Either<Failure, void>> addToHistory(Map<String, dynamic> movieData);
+  Future<Either<Failure, bool>> isInWatchlist(String movieId);
+  Future<Either<Failure, bool>> isInHistory(String movieId);
 }

@@ -28,6 +28,7 @@ import 'package:movie_app/features/auth/presentation/manager/signup_cubit/signup
 import 'package:movie_app/features/profile/data/repos/profile_repo.dart';
 import 'package:movie_app/features/profile/data/repos/profile_repo_impl.dart';
 import 'package:movie_app/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
+import 'package:movie_app/features/profile/presentation/manager/watchlist_cubit/watchlist_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -89,6 +90,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt<AuthRepo>()));
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt<AuthRepo>()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt<ProfileRepo>()));
+  getIt.registerFactory<WatchlistCubit>(() => WatchlistCubit(getIt<ProfileRepo>()));
 
   await getIt.allReady();
 }

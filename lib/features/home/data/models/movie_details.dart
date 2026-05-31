@@ -12,6 +12,7 @@ class CastModel extends Equatable {
 }
 
 class MovieDetailModel extends Equatable {
+  final int id;
   final String title;
   final double rating;
   final int year;
@@ -24,6 +25,7 @@ class MovieDetailModel extends Equatable {
   final List<String> screenshots;
 
  const MovieDetailModel({
+    required this.id,
     required this.title,
     required this.rating,
     required this.year,
@@ -39,6 +41,7 @@ class MovieDetailModel extends Equatable {
   final movie = json['data']['movie'];
 
   return MovieDetailModel(
+    id: movie['id'] ?? 0,
     title: movie['title'] ?? '',
     rating: (movie['rating'] as num?)?.toDouble() ?? 0.0,
     year: movie['year'] ?? 0,
@@ -62,8 +65,17 @@ class MovieDetailModel extends Equatable {
   );
   }
 
+  Map<String, dynamic> toFirestoreMap() => {
+    'movieId': id,
+    'title': title,
+    'rating': rating,
+    'year': year,
+    'backgroundImage': backgroundImage,
+  };
+
   @override
   List<Object?> get props => [
+    id,
     title,
     rating,
     year,

@@ -8,6 +8,7 @@ import 'package:movie_app/core/theming/font_weight_helper.dart';
 import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/core/utils/constants/app_constants.dart';
 import 'package:movie_app/core/widgets/buttons/custom_bottom_button.dart';
+import 'package:movie_app/core/widgets/feedback/custom_snack_bar.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_details_cubit.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_details_state.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/movie_screen_shot_item.dart';
@@ -15,6 +16,8 @@ import 'package:movie_app/features/home/presentation/view/home_tab/widgets/custo
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/movie_details_header.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/movie_stats_section.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/section_title.dart';
+import 'package:movie_app/features/profile/presentation/manager/watchlist_cubit/watchlist_cubit.dart';
+import 'package:movie_app/features/profile/presentation/manager/watchlist_cubit/watchlist_state.dart';
 
 class MovieDetailsView extends StatelessWidget {
   final int id;
@@ -23,134 +26,164 @@ class MovieDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<MoviesDetailsCubit>()..fetchMoviesDetails(id: id),
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              size: 30.w,
-              color: AppColorsExtension.light.textPrimary,
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(AppIcons.saved),
-            ),
-          ],
+    final colors = Theme.of(context).extension<AppColorsExtension>()!;
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) =>
+              getIt<MoviesDetailsCubit>()..fetchMoviesDetails(id: id),
         ),
-        body: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
-          builder: (context, state) {
-            if (state is MoviesDetailsLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            if (state is MoviesDetailsErrorState) {
-              return Center(child: Text(state.message));
-            }
-
-            if (state is MoviesDetailsLoadedState) {
-              final movie = state.movieDetails;
-
-              return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MovieDetailsHeader(movie: movie),
-                    CustomBottomButton(
-                      text: AppConstants.watch,
-                      onPressed: () {},
-                      backgroundColor: AppColorsExtension.light.error,
-                      textStyle: Theme.of(context).textTheme.titleMedium
-                          ?.copyWith(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                    ),
-                    MovieStatsSection(movie: movie),
-                    SectionTitle(title: AppConstants.screenshots),
-
-                    Column(
-                      children: movie.screenshots.map((image) {
-                        return MovieScreenshotItem(imageUrl: image);
-                      }).toList(),
-                    ),
-                    const SectionTitle(title: AppConstants.summary),
-
-                    Padding(
-                      padding: REdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8,
+        BlocProvider(
+          create: (_) => getIt<WatchlistCubit>()..checkStatus(id),
+        ),
+      ],
+      child: BlocListener<WatchlistCubit, WatchlistState>(
+        listener: (context, state) {
+          if (state is WatchlistActionSuccess) {
+            CustomSnackBar.show(context: context, message: state.message);
+          }
+          if (state is WatchlistError) {
+            CustomSnackBar.show(
+                context: context, message: state.message, isError: true);
+          }
+        },
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.arrow_back_ios, size: 30.w, color: Colors.white),
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: [
+              BlocBuilder<WatchlistCubit, WatchlistState>(
+                builder: (context, state) {
+                  final cubit = context.read<WatchlistCubit>();
+                  final inWatchlist = state is WatchlistStatusLoaded
+                      ? state.isInWatchlist
+                      : cubit.isInWatchlist;
+                  return IconButton(
+                    onPressed: () {
+                      final detailState =
+                          context.read<MoviesDetailsCubit>().state;
+                      if (detailState is MoviesDetailsLoadedState) {
+                        cubit.toggleWatchlist(detailState.movieDetails);
+                      }
+                    },
+                    icon: SvgPicture.asset(
+                      AppIcons.saved,
+                      colorFilter: ColorFilter.mode(
+                        inWatchlist ? colors.primary : Colors.white,
+                        BlendMode.srcIn,
                       ),
-                      child: Text(
-                        movie.description,
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          fontWeight: FontWeightHelper.regular,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+          body: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
+            builder: (context, state) {
+              if (state is MoviesDetailsLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state is MoviesDetailsErrorState) {
+                return Center(child: Text(state.message));
+              }
+              if (state is MoviesDetailsLoadedState) {
+                final movie = state.movieDetails;
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MovieDetailsHeader(movie: movie),
+                      BlocBuilder<WatchlistCubit, WatchlistState>(
+                        builder: (context, watchState) {
+                          return CustomBottomButton(
+                            text: AppConstants.watch,
+                            onPressed: () {
+                              context.read<WatchlistCubit>().addToHistory(movie);
+                            },
+                            backgroundColor: colors.error,
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                          );
+                        },
+                      ),
+                      MovieStatsSection(movie: movie),
+                      const SectionTitle(title: AppConstants.screenshots),
+                      Column(
+                        children: movie.screenshots
+                            .map((image) => MovieScreenshotItem(imageUrl: image))
+                            .toList(),
+                      ),
+                      const SectionTitle(title: AppConstants.summary),
+                      Padding(
+                        padding: REdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8),
+                        child: Text(
+                          movie.description,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(fontWeight: FontWeightHelper.regular),
                         ),
                       ),
-                    ),
-                    const SectionTitle(title: AppConstants.cast),
-                    Column(
-                      children: movie.cast.map((cast) {
-                        return CustomCastItem(
-                          image: cast.image,
-                          name: cast.name,
-                          character: cast.character,
-                        );
-                      }).toList(),
-                    ),
-                    SizedBox(height: 16.h),
-                    const SectionTitle(title: AppConstants.genres),
-
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                        vertical: 16.h,
+                      const SectionTitle(title: AppConstants.cast),
+                      Column(
+                        children: movie.cast
+                            .map((cast) => CustomCastItem(
+                                  image: cast.image,
+                                  name: cast.name,
+                                  character: cast.character,
+                                ))
+                            .toList(),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Wrap(
-                            spacing: 16.w,
-                            runSpacing: 12.h,
-                            children: movie.genres.map((genre) {
-                              return Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 28.w,
-                                  vertical: 12.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: AppColorsExtension.dark.surface,
-                                  borderRadius: BorderRadius.circular(16.r),
-                                ),
-                                child: Text(
-                                  genre,
-                                  style: Theme.of(context).textTheme.labelLarge!
-                                      .copyWith(
-                                        fontWeight: FontWeightHelper.regular,
-                                      ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ],
+                      SizedBox(height: 16.h),
+                      const SectionTitle(title: AppConstants.genres),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 16.h),
+                        child: Wrap(
+                          spacing: 16.w,
+                          runSpacing: 12.h,
+                          children: movie.genres
+                              .map((genre) => Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 28.w, vertical: 12.h),
+                                    decoration: BoxDecoration(
+                                      color: colors.surface,
+                                      borderRadius:
+                                          BorderRadius.circular(16.r),
+                                    ),
+                                    child: Text(
+                                      genre,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .copyWith(
+                                              fontWeight:
+                                                  FontWeightHelper.regular),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return const SizedBox();
-          },
+                    ],
+                  ),
+                );
+              }
+              return const SizedBox();
+            },
+          ),
         ),
       ),
     );
