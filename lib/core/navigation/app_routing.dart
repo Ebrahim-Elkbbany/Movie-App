@@ -6,6 +6,7 @@ import 'package:movie_app/core/navigation/app_routes.dart';
 import 'package:movie_app/features/home/presentation/manager/search_cubit.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/movie_details_view.dart';
 import 'package:movie_app/features/home/presentation/view/home_view.dart';
+import 'package:movie_app/features/home/presentation/view/main_view.dart';
 import 'package:movie_app/features/home/presentation/view/search_tab/search_view_tab.dart';
 import 'package:movie_app/features/onboarding/presentation/view/onboarding_view.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
@@ -26,7 +27,7 @@ abstract class AppRouter {
         case AppRoutes.initialRoute:
           final user = FirebaseAuth.instance.currentUser;
           if (user != null) {
-            return MaterialPageRoute(builder: (context) => const ProfileView());
+            return MaterialPageRoute(builder: (context) => const MainView());
           }
           return MaterialPageRoute(
             builder: (context) => BlocProvider(
@@ -66,6 +67,9 @@ abstract class AppRouter {
               child: const ForgetPasswordView(),
             ),
           );
+        case AppRoutes.mainView:
+          return MaterialPageRoute(builder: (context) => const MainView());
+
         case AppRoutes.homeView:
           return MaterialPageRoute(builder: (context) => const HomeView());
         case AppRoutes.detailsView:

@@ -7,6 +7,7 @@ abstract class AppRoutes {
   static const String onBoardingView = '/onBoardingView';
    static const registerView = 'registerView';
   static const forgetPasswordView = 'forgetPasswordView';
+  static const mainView = 'mainView';
   static const homeView = 'homeView';
   static const detailsView = 'detailsView';
   static const searchView = 'searchView';

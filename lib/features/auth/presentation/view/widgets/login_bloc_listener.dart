@@ -22,7 +22,7 @@ class LoginBlocListener extends StatelessWidget {
         if (state is LoginSuccess) {
           Navigator.pushNamedAndRemoveUntil(
             context,
-            AppRoutes.profileView,
+            AppRoutes.mainView,
             (route) => false,
           );
         }
