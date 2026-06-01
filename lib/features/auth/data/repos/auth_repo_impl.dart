@@ -82,22 +82,36 @@ class AuthRepoImpl implements AuthRepo {
       );
       final userCredential = await _auth.signInWithCredential(credential);
       final uid = userCredential.user!.uid;
+      final googleName = userCredential.user!.displayName?.isNotEmpty == true
+          ? userCredential.user!.displayName!
+          : 'Google User';
+      final googleEmail = userCredential.user!.email?.isNotEmpty == true
+          ? userCredential.user!.email!
+          : 'No Email Provided';
+      final googlePhoto = userCredential.user!.photoURL?.isNotEmpty == true
+          ? userCredential.user!.photoURL!
+          : AppImages.avatar1;
+
       final doc = await _firestore.collection('users').doc(uid).get();
       if (doc.exists) {
-        return Right(UserModel.fromJson(doc.data()!));
+        final existingData = doc.data()!;
+        final updatedUser = UserModel(
+          userId: uid,
+          name: googleName,
+          email: googleEmail,
+          phone: existingData['phone'] ?? '',
+          avatarPath: googlePhoto,
+          createdAt: (existingData['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+        );
+        await _firestore.collection('users').doc(uid).update(updatedUser.toJson());
+        return Right(updatedUser);
       }
       final user = UserModel(
         userId: uid,
-        name: userCredential.user!.displayName?.isNotEmpty == true
-            ? userCredential.user!.displayName!
-            : 'Google User',
-        email: userCredential.user!.email?.isNotEmpty == true
-            ? userCredential.user!.email!
-            : 'No Email Provided',
+        name: googleName,
+        email: googleEmail,
         phone: '',
-        avatarPath: userCredential.user!.photoURL?.isNotEmpty == true
-            ? userCredential.user!.photoURL!
-            : AppImages.avatar1,
+        avatarPath: googlePhoto,
         createdAt: DateTime.now(),
       );
       await _firestore.collection('users').doc(uid).set(user.toJson());
