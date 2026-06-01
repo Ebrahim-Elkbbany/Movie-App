@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/core/navigation/app_routes.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/theming/font_styles.dart';
 import 'package:movie_app/core/utils/constants/app_assets.dart';
@@ -97,8 +98,19 @@ class ProfileTabsSection extends StatelessWidget {
           ),
           itemCount: items.length,
           itemBuilder: (context, index) {
-            final movie = items[index];
-            return MovieCard(movieData: movie); // Will pass data once movie card supports it
+            final Map<String, dynamic> movie = items[index];
+            return MovieCard(
+              movieData: movie,
+              onTap: () {
+                final dynamic movieId = movie['movieId'];
+                if (movieId == null) return;
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.detailsView,
+                  arguments: movieId is int ? movieId : int.tryParse(movieId.toString()),
+                );
+              },
+            );
           },
         );
       },

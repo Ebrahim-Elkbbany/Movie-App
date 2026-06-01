@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:movie_app/core/failure/failures.dart';
 import 'package:movie_app/core/network/api_end_points.dart';
 import 'package:movie_app/core/network/api_service.dart';
-import 'package:movie_app/features/home/data/data_sources/search_data_source.dart';
+import 'package:movie_app/features/search/data/data_sources/search_data_source.dart';
 import 'package:movie_app/features/home/data/models/response_model.dart';
 
 class SearchDataSourceImpl implements SearchDataSource {
@@ -17,7 +17,7 @@ class SearchDataSourceImpl implements SearchDataSource {
   }) async {
     try {
       final response = await apiService.get(
-        urlEndPoint: ApisEndpoints.baseUrl,
+        urlEndPoint: ApisEndpoints.listMovies,
         queryParameters: {
           'query_term': query,
           'page': page,

@@ -24,6 +24,15 @@ class CustomCachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl.isEmpty) {
+      return ImageErrorPlaceholder(
+        shape: shape,
+        height: height,
+        width: width,
+        borderRadius: borderRadius,
+      );
+    }
+
     return CachedNetworkImage(
       imageUrl: imageUrl,
       height: height?.h,

@@ -10,8 +10,10 @@ abstract class AppRoutes {
   static const mainView = 'mainView';
   static const homeView = 'homeView';
   static const detailsView = 'detailsView';
+  static const categoryMoviesView = 'categoryMoviesView';
   static const searchView = 'searchView';
   static const profileView = 'profileView';
   static const editProfileView = 'editProfileView';
+  static const exploreView = 'exploreView';
   static const initialRoute = '/';
 }

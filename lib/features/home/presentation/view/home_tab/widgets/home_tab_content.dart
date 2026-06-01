@@ -21,72 +21,73 @@ class HomeContent extends StatelessWidget {
     final featured = movies.take(10).toList();
     final currentMovie = featured[state.currentIndex];
 
-    return SingleChildScrollView(
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: CachedNetworkImage(
-              imageUrl: currentMovie.imageUrl,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    AppColorsExtension.light.primary.withValues(alpha: 0.6),
-                    AppColorsExtension.light.primary,
-                  ],
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: currentMovie.imageUrl.isEmpty
+              ? Container(color: Colors.grey[900])
+              : CachedNetworkImage(
+                  imageUrl: currentMovie.imageUrl,
+                  fit: BoxFit.cover,
                 ),
+        ),
+
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent,
+                  AppColorsExtension.light.primary.withValues(alpha: 0.6),
+                  AppColorsExtension.light.primary,
+                ],
               ),
             ),
           ),
+        ),
 
-          // CONTENT
-          Column(
-            children: [
-              Image.asset(AppImages.availableNow, width: 263.w),
+        // CONTENT
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(AppImages.availableNow, width: 263.w),
 
-              CarouselSlider(
-                items: featured.map((movie) {
-                  return MoviesCard(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.detailsView,
-                        arguments: movie.id,
-                      );
-                    },
-                    movie: movie,
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                  height: 352.h,
-                  viewportFraction: 0.55,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.36,
-                  initialPage: 0,
-                  autoPlay: true,
-                  enableInfiniteScroll: true,
-                  autoPlayInterval: const Duration(seconds: 4),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  onPageChanged: (index, reason) {
-                    context.read<MoviesCubit>().changeIndex(index);
+            CarouselSlider(
+              items: featured.map((movie) {
+                return MoviesCard(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.detailsView,
+                      arguments: movie.id,
+                    );
                   },
-                ),
+                  movie: movie,
+                );
+              }).toList(),
+              options: CarouselOptions(
+                height: 352.h,
+                viewportFraction: 0.55,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.36,
+                initialPage: 0,
+                autoPlay: true,
+                enableInfiniteScroll: true,
+                autoPlayInterval: const Duration(seconds: 4),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                scrollPhysics: const BouncingScrollPhysics(),
+                onPageChanged: (index, reason) {
+                  context.read<MoviesCubit>().changeIndex(index);
+                },
               ),
+            ),
 
-              Image.asset(AppImages.watchNow, width: 320.w),
-            ],
-          ),
-        ],
-      ),
+            Image.asset(AppImages.watchNow, width: 320.w),
+          ],
+        ),
+      ],
     );
   }
 }

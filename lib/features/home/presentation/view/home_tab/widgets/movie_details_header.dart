@@ -23,10 +23,12 @@ class MovieDetailsHeader extends StatelessWidget {
         alignment: Alignment.center,
         fit: StackFit.expand,
         children: [
-          CachedNetworkImage(
-            imageUrl: movie.backgroundImage,
-            fit: BoxFit.cover,
-          ),
+          movie.backgroundImage.isEmpty
+              ? Container(color: Colors.grey[900])
+              : CachedNetworkImage(
+                  imageUrl: movie.backgroundImage,
+                  fit: BoxFit.cover,
+                ),
     
           Container(
             decoration: BoxDecoration(

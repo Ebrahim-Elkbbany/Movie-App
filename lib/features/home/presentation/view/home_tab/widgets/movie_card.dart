@@ -32,10 +32,12 @@ class MoviesCard extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: CachedNetworkImage(
-                  imageUrl: movie.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+                child: movie.imageUrl.isEmpty
+                    ? Container(color: Colors.grey[900])
+                    : CachedNetworkImage(
+                        imageUrl: movie.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
               ),
               MovieRatingBadge(rating: movie.rating),
             ],

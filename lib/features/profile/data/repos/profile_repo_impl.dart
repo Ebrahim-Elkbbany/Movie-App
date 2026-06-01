@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:movie_app/core/failure/failures.dart';
 import 'package:movie_app/core/network/tocken_storage_service.dart';
 import 'package:movie_app/features/auth/data/models/user_model.dart';
@@ -153,6 +154,7 @@ class ProfileRepoImpl implements ProfileRepo {
           .set({...movieData, 'addedAt': FieldValue.serverTimestamp()});
       return right(null);
     } catch (e) {
+      debugPrint('❌ addToWatchlist error: $e');
       return left(ServerFailure(e.toString()));
     }
   }

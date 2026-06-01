@@ -19,12 +19,19 @@ class MovieScreenshotItem extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16.r),
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          fit: BoxFit.cover,
-          height: 170.h,
-          width: double.infinity,
-        ),
+        child: imageUrl.isEmpty
+            ? Container(
+                height: 170.h,
+                width: double.infinity,
+                color: Colors.grey[900],
+                child: const Icon(Icons.broken_image),
+              )
+            : CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                height: 170.h,
+                width: double.infinity,
+              ),
       ),
     );
   }

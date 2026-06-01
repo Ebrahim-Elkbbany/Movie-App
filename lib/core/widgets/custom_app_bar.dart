@@ -23,6 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leadingWidth: 70.w,
       backgroundColor: backgroundColor ?? context.customColors.background,
       title: CustomText(
         text: title,
@@ -32,8 +33,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       leading: showBackButton
-          ? Center(
-              child: BackWidget(onTap: onBackTap),
+          ? Padding(
+              padding: EdgeInsetsDirectional.only(start: 16.w),
+              child: Center(
+                child: BackWidget(onTap: onBackTap),
+              ),
             )
           : null,
       actions: actions,

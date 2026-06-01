@@ -9,6 +9,29 @@ abstract class AppConstants {
   static const String summary = 'Summary';
   static const String cast = 'Cast';
   static const String genres = 'Genres';
+
+  /// Genre categories for the explore feature
+  static const List<String> movieGenres = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Comedy',
+    'Crime',
+    'Documentary',
+    'Drama',
+    'Family',
+    'Fantasy',
+    'History',
+    'Horror',
+    'Music',
+    'Mystery',
+    'Romance',
+    'Sci-Fi',
+    'Sport',
+    'Thriller',
+    'War',
+    'Western',
+  ];
   static const String onBoarding1Title = 'Find Your Next\n Favorite Movie Here';
   static const String onBoarding1Description =
       'Get access to a huge library of movies\n to suit all tastes. You will surely like it.';

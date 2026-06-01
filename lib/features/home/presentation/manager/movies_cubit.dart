@@ -15,7 +15,9 @@ class MoviesCubit extends Cubit<MoviesState> {
 
     final featuredResult = await moviesRepository.getMovies();
 
-    featuredResult.fold((failure) => emit(MoviesError(failure.errorMessage)), (
+    featuredResult.fold((failure) {
+      if (!isClosed) emit(MoviesError(failure.errorMessage));
+    }, (
       movies,
     ) async {
       final sortedMovies = List<MovieModel>.from(movies)
@@ -33,14 +35,16 @@ class MoviesCubit extends Cubit<MoviesState> {
         });
       }
 
-      emit(
-        MoviesLoaded(
-          movies: sortedMovies,
-          categories: categories,
-          currentIndex: 0,
-          currentCategoryIndex: 0,
-        ),
-      );
+      if (!isClosed) {
+        emit(
+          MoviesLoaded(
+            movies: sortedMovies,
+            categories: categories,
+            currentIndex: 0,
+            currentCategoryIndex: 0,
+          ),
+        );
+      }
     });
   }
 

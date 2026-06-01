@@ -9,15 +9,8 @@ import 'package:movie_app/features/home/presentation/manager/movies_states.dart'
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/home_tab_content.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/movie_card.dart';
 
-class HomeTabView extends StatefulWidget {
+class HomeTabView extends StatelessWidget {
   const HomeTabView({super.key});
-
-  @override
-  State<HomeTabView> createState() => _HomeTabViewState();
-}
-
-class _HomeTabViewState extends State<HomeTabView> {
-  bool showAllCategories = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +28,7 @@ class _HomeTabViewState extends State<HomeTabView> {
           final category = state.categories[state.currentCategoryIndex];
 
           return SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 100.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -54,17 +48,15 @@ class _HomeTabViewState extends State<HomeTabView> {
 
                       TextButton(
                         onPressed: () {
-                          setState(() {
-                            showAllCategories = !showAllCategories;
-                          });
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.categoryMoviesView,
+                            arguments: category.title,
+                          );
                         },
                         child: Row(
                           children: [
-                            Text(
-                              showAllCategories
-                                  ? AppConstants.showLess
-                                  : AppConstants.seeMore,
-                            ),
+                            const Text(AppConstants.seeMore),
                             SizedBox(width: 4.w),
                             Icon(Icons.arrow_forward, size: 12.w),
                           ],
@@ -74,55 +66,29 @@ class _HomeTabViewState extends State<HomeTabView> {
                   ),
                 ),
 
-                showAllCategories
-                    ? GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        itemCount: category.movies.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.65,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                            ),
-                        itemBuilder: (context, index) {
-                          return MoviesCard(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                AppRoutes.detailsView,
-                                arguments: category.movies[index].id,
-                              );
-                            },
-                            movie: category.movies[index],
+                SizedBox(
+                  height: 220.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    itemCount: category.movies.length,
+                    separatorBuilder: (_, _) => SizedBox(width: 10.w),
+                    itemBuilder: (context, movieIndex) {
+                      return MoviesCard(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.detailsView,
+                            arguments: category.movies[movieIndex].id,
                           );
                         },
-                      )
-                    : SizedBox(
+                        movie: category.movies[movieIndex],
+                        width: 150.w,
                         height: 220.h,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          itemCount: category.movies.length,
-                          separatorBuilder: (_, _) => SizedBox(width: 10.w),
-                          itemBuilder: (context, movieIndex) {
-                            return MoviesCard(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.detailsView,
-                                  arguments: category.movies[movieIndex].id,
-                                );
-                              },
-                              movie: category.movies[movieIndex],
-                              width: 150.w,
-                              height: 220.h,
-                            );
-                          },
-                        ),
-                      ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           );

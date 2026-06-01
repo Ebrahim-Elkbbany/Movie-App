@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/theming/app_colors_extension.dart';
 import 'package:movie_app/core/utils/constants/app_assets.dart';
 import 'package:movie_app/core/widgets/text_fields/custom_text_form_field.dart';
-import 'package:movie_app/features/home/presentation/manager/search_cubit.dart';
-import 'package:movie_app/features/home/presentation/manager/search_state.dart';
+import 'package:movie_app/features/search/presentation/manager/search_cubit.dart';
+import 'package:movie_app/features/search/presentation/manager/search_state.dart';
 import 'package:movie_app/features/home/presentation/view/home_tab/widgets/movie_card.dart';
 
 class SearchViewTab extends StatelessWidget {

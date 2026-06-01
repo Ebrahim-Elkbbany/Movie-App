@@ -32,11 +32,11 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
 }
 
 @override
-Future<Either<Failure, List<MovieModel>>> getMoviesByGenre({required String genre}) async {
+Future<Either<Failure, List<MovieModel>>> getMoviesByGenre({required String genre, int page = 1}) async {
   try {
     final response = await apiService.get(
       urlEndPoint: ApisEndpoints.listMovies,
-      queryParameters: {'genre': genre},
+      queryParameters: {'genre': genre, 'page': page},
     );
 
     return response.fold(

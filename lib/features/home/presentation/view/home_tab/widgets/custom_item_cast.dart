@@ -30,12 +30,19 @@ class CustomCastItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16.r),
-            child: CachedNetworkImage(
-              imageUrl: image,
-              width: 72.w,
-              height: 72.h,
-              fit: BoxFit.cover,
-            ),
+            child: image.isEmpty
+                ? Container(
+                    width: 72.w,
+                    height: 72.h,
+                    color: Colors.grey[800],
+                    child: const Icon(Icons.person),
+                  )
+                : CachedNetworkImage(
+                    imageUrl: image,
+                    width: 72.w,
+                    height: 72.h,
+                    fit: BoxFit.cover,
+                  ),
           ),
 
           SizedBox(width: 12.w),

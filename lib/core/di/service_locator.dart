@@ -6,17 +6,18 @@ import 'package:movie_app/features/home/data/data_sources/movies_details_data_so
 import 'package:movie_app/features/home/data/data_sources/movies_details_data_source_impl.dart';
 import 'package:movie_app/features/home/data/data_sources/movies_remote_data_source.dart';
 import 'package:movie_app/features/home/data/data_sources/movies_remote_data_source_impl.dart';
-import 'package:movie_app/features/home/data/data_sources/search_data_source.dart';
-import 'package:movie_app/features/home/data/data_sources/search_data_source_impl.dart';
+import 'package:movie_app/features/search/data/data_sources/search_data_source.dart';
+import 'package:movie_app/features/search/data/data_sources/search_data_source_impl.dart';
 import 'package:movie_app/features/home/data/repos/movies_details_repo.dart';
 import 'package:movie_app/features/home/data/repos/movies_details_repo_impl.dart';
 import 'package:movie_app/features/home/data/repos/movies_repo.dart';
 import 'package:movie_app/features/home/data/repos/movies_repo_impl.dart';
-import 'package:movie_app/features/home/data/repos/search_repo.dart';
-import 'package:movie_app/features/home/data/repos/search_repo_impl.dart';
+import 'package:movie_app/features/search/data/repos/search_repo.dart';
+import 'package:movie_app/features/search/data/repos/search_repo_impl.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_cubit.dart';
+import 'package:movie_app/features/home/presentation/manager/category_movies_cubit.dart';
 import 'package:movie_app/features/home/presentation/manager/movies_details_cubit.dart';
-import 'package:movie_app/features/home/presentation/manager/search_cubit.dart';
+import 'package:movie_app/features/search/presentation/manager/search_cubit.dart';
 import 'package:movie_app/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:movie_app/core/network/api_service.dart';
@@ -29,6 +30,11 @@ import 'package:movie_app/features/profile/data/repos/profile_repo.dart';
 import 'package:movie_app/features/profile/data/repos/profile_repo_impl.dart';
 import 'package:movie_app/features/profile/presentation/manager/profile_cubit/profile_cubit.dart';
 import 'package:movie_app/features/profile/presentation/manager/watchlist_cubit/watchlist_cubit.dart';
+import 'package:movie_app/features/explore/data/data_sources/explore_remote_data_source.dart';
+import 'package:movie_app/features/explore/data/data_sources/explore_remote_data_source_impl.dart';
+import 'package:movie_app/features/explore/data/repos/explore_repo.dart';
+import 'package:movie_app/features/explore/data/repos/explore_repo_impl.dart';
+import 'package:movie_app/features/explore/presentation/manager/explore_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -76,6 +82,7 @@ Future<void> setupServiceLocator() async {
     () => SearchRepoImpl(searchDataSource: getIt<SearchDataSource>()),
   );
   getIt.registerFactory(() => MoviesCubit(getIt<MoviesRepository>()));
+  getIt.registerFactory(() => CategoryMoviesCubit(getIt<MoviesRepository>()));
   getIt.registerFactory(() => SearchCubit(getIt<SearchRepo>()));
   getIt.registerFactory(
     () => MoviesDetailsCubit(getIt<MoviesDetailsRepository>()),
@@ -91,6 +98,17 @@ Future<void> setupServiceLocator() async {
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt<AuthRepo>()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt<ProfileRepo>()));
   getIt.registerFactory<WatchlistCubit>(() => WatchlistCubit(getIt<ProfileRepo>()));
+
+  // -- Explore Feature --
+  getIt.registerLazySingleton<ExploreRemoteDataSource>(
+    () => ExploreRemoteDataSourceImpl(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<ExploreRepo>(
+    () => ExploreRepoImpl(getIt<ExploreRemoteDataSource>()),
+  );
+  getIt.registerFactory<ExploreCubit>(
+    () => ExploreCubit(getIt<ExploreRepo>()),
+  );
 
   await getIt.allReady();
 }
