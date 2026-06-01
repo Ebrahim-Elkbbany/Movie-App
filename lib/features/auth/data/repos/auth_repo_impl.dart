@@ -88,9 +88,9 @@ class AuthRepoImpl implements AuthRepo {
       final googleEmail = userCredential.user!.email?.isNotEmpty == true
           ? userCredential.user!.email!
           : 'No Email Provided';
-      final googlePhoto = userCredential.user!.photoURL?.isNotEmpty == true
-          ? userCredential.user!.photoURL!
-          : AppImages.avatar1;
+
+      // Use default avatar1 instead of Google photo as requested
+      const googlePhoto = AppImages.avatar1;
 
       final doc = await _firestore.collection('users').doc(uid).get();
       if (doc.exists) {
@@ -101,9 +101,14 @@ class AuthRepoImpl implements AuthRepo {
           email: googleEmail,
           phone: existingData['phone'] ?? '',
           avatarPath: googlePhoto,
-          createdAt: (existingData['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+          createdAt:
+              (existingData['createdAt'] as Timestamp?)?.toDate() ??
+              DateTime.now(),
         );
-        await _firestore.collection('users').doc(uid).update(updatedUser.toJson());
+        await _firestore
+            .collection('users')
+            .doc(uid)
+            .update(updatedUser.toJson());
         return Right(updatedUser);
       }
       final user = UserModel(

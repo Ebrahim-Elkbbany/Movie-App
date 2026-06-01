@@ -35,7 +35,6 @@ class ProfileAvatarAndName extends StatelessWidget {
 
   ImageProvider _getAvatarImage(String path) {
     if (path.isEmpty) return const AssetImage(AppImages.avatar1);
-    if (path.startsWith('http')) return NetworkImage(path);
     return AssetImage(path);
   }
 }
